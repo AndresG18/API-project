@@ -8,24 +8,42 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
+    /**
+     * Add seed commands here.
+     *
+     * Example:
+     * await queryInterface.bulkInsert('People', [{
+     *   name: 'John Doe',
+     *   isBetaMember: false
+     * }], {});
+    */
     await User.bulkCreate([
       {
         firstName:"Demo",
-        lastName:"user",
+        lastName:"User",
         email: 'demo@user.io',
         username: 'Demo-lition',
         hashedPassword: bcrypt.hashSync('password')
-      },
-    ], { validate: true });
+      }],{ validate: true });
+
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Users';
-    const Op = Sequelize.Op;
-    await queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
-    }, {});
+    /**
+     * Add commands to revert seed here.
+     *
+     * Example:
+     * await queryInterface.bulkDelete('People', null, {});
+     */
+
+    await User.bulkDelete({
+      where:{
+        username:"Demo"
+      }
+    })
+
   }
 };
