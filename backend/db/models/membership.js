@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,
     status:{
-      type: DataTypes.ENUM,
+      type: DataTypes.STRING,
       allowNull:false
     }
   }, {
