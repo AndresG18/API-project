@@ -6,6 +6,19 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
+      User.belongsTo(models.Group,{
+        foreignKey:'organizerId'
+      })
+      User.belongsToMany(models.Group,{
+        through:'Membership',
+        otherKey:'groupId',
+        foreignKey:'userId'
+      })
+      User.belongsToMany(models.Event,{
+        through:'Attendance',
+        otherKey:'eventId',
+        foreignKey:'userId'
+      })
     }
   };
 
@@ -18,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
       lastName:{
         type: DataTypes.STRING,
         allowNull:false,
-        unique:true
       },
       email: {
         type: DataTypes.STRING,
@@ -57,7 +69,6 @@ module.exports = (sequelize, DataTypes) => {
           exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
         }
       }
-    }
-  );
+    });
   return User;
 };
