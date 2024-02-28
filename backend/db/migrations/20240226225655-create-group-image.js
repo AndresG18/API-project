@@ -21,7 +21,7 @@ module.exports = {
         }
       },
       url: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       preview: {
         type: Sequelize.BOOLEAN,
