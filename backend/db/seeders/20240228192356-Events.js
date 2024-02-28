@@ -48,7 +48,7 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     options.tableName = 'Events'
-    await Event.bulkDelete(options,{
+    await queryInterface.bulkDelete(options,{
       groupId:{
         [Op.in]:[1,2,3]
       }

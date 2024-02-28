@@ -27,7 +27,7 @@ const groups = [
   }, {
     organizerId: 1,
     name: 'Games n Fun',
-    about: "Play video games,board games and have fun with friends. ",
+    about: "Play video games,board games and have fun with friends.",
     type: 'Entertainment',
     private: false,
     city: 'Maricopa',

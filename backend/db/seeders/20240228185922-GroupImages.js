@@ -5,6 +5,7 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+
 const images = [
   {
     groupId:1,
@@ -32,7 +33,7 @@ const images = [
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await GroupImage.createBulk(images,{validate:true})
+    await GroupImage.bulkCreate(images,{validate:true})
   },
 
   async down (queryInterface, Sequelize) {

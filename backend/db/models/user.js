@@ -1,6 +1,6 @@
 'use strict';
 
-const { Model, Validator } = require('sequelize');
+const { Model, Validator } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:'organizerId'
       })
       User.belongsToMany(models.Group,{
-        through:'Membership',
+        through:models.Membership,
         otherKey:'groupId',
         foreignKey:'userId'
       })
       User.belongsToMany(models.Event,{
-        through:'Attendance',
+        through:models.Attendance,
         otherKey:'eventId',
         foreignKey:'userId'
       })

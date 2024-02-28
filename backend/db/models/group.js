@@ -1,27 +1,24 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-
+const { Model, Validator } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Group extends Model {
     static associate(models) {
       // define association here
       Group.hasOne(models.User,{
-        foreignKey:'organizerId'
+        foreignKey:'organizerId',
+        as:'Owner'
       })
-      Group.belongsTo(models.GroupImages,{
+      Group.hasMany(models.GroupImage,{
         foreignKey:'groupId'
       })
-      Group.belongsToMany(models.Venue,{
-        through:'Event',
-        otherKey:'venueId',
+      Group.hasMany(models.Event,{
         foreignKey:'groupId'
       })
       Group.belongsToMany(models.User,{
-        through:'Membership',
+        through:models.Membership,
         otherKey:'userId',
-        foreignKey:'groupId'
+        foreignKey:'groupId',
+        as:'Member'
       })
     }
   }
@@ -44,8 +41,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     private: {
       type:DataTypes.BOOLEAN,
-      allowNull:false}
-      ,
+      allowNull:false
+    },
     city: DataTypes.STRING,
     state: DataTypes.STRING
   }, {

@@ -28,7 +28,7 @@ module.exports = {
         }
       },
       status: {
-        type: Sequelize.ENUM,
+        type: Sequelize.STRING,
         allowNull:false
       },
       createdAt: {
