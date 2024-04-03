@@ -11,17 +11,47 @@ const memberships = [
   {
     userId:3,
     groupId:1,
-    status:"active",
+    status:"organizer",
+  }, 
+  {
+    userId:3,
+    groupId:2,
+    status:"co-host",
+  },
+  {
+    userId:3,
+    groupId:3,
+    status:"member",
   },
   {
     userId:2,
     groupId:2,
-    status:"active",
+    status:"organizer",
+  },
+  {
+    userId:2,
+    groupId:1,
+    status:"co-host",
+  },
+  {
+    userId:2,
+    groupId:3,
+    status:"member",
   },
   {
     userId:1,
     groupId:1,
-    status:"active",
+    status:"member",
+  },
+  {
+    userId:1,
+    groupId:2,
+    status:"member",
+  },
+  {
+    userId:1,
+    groupId:3,
+    status:"organizer",
   }
 ]
 

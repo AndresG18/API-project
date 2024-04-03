@@ -19,7 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     groupId: DataTypes.INTEGER,
     status:{
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      defaultValue:'pending',
+      validate:{
+        isIn:[['pending','member','co-host','organizer']]
+      }
     }
   }, {
     sequelize,

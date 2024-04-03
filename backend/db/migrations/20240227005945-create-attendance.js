@@ -18,7 +18,8 @@ module.exports = {
         references: {
           model:'Events',
           keyId:'id'
-        }
+        },
+        onDelete:'CASCADE'
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -29,7 +30,8 @@ module.exports = {
       },
       status: {
         type: Sequelize.STRING(10),
-        allowNull:false
+        allowNull:false,
+        defaultValue:'pending'
       },
       createdAt: {
         allowNull: false,

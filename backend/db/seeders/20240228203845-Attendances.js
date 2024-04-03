@@ -10,46 +10,46 @@ const attendances = [
   {
     eventId: 1,
     userId: 1,
-    status: 'active'
+    status: 'pending'
   },
   {
     eventId: 1,
     userId: 2,
-    status: 'active'
+    status: 'attending'
   },
   {
     eventId: 1,
     userId: 3,
-    status: 'active'
+    status: 'attending'
   },
   {
     eventId: 2,
     userId: 1,
-    status: 'active'
+    status: 'pending'
   },
   {
     eventId: 2,
     userId: 2,
-    status: 'active'
+    status: 'attending'
   },
   {
     eventId: 2,
     userId: 3,
-    status: 'active'
+    status: 'attending'
   },
   {
     eventId: 3,
     userId: 1,
-    status: 'active'
+    status: 'attending'
   },
   {
     eventId: 3,
     userId: 2,
-    status: 'active'
+    status: 'attending'
   }, {
     eventId: 3,
     userId: 3,
-    status: 'active'
+    status: 'attending'
   },
 ]
 /** @type {import('sequelize-cli').Migration} */

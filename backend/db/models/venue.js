@@ -10,13 +10,21 @@ module.exports = (sequelize, DataTypes) => {
       Venue.hasMany(models.Event,{
         foreignKey:'venueId',
       })
+      Venue.belongsTo(models.Group,{
+        foreignKey:'groupId',
+      })
     }
   }
   Venue.init({
     groupId: DataTypes.INTEGER,
     address: DataTypes.STRING,
     city: DataTypes.STRING,
-    state: DataTypes.STRING,
+    state: {
+      type:DataTypes.STRING,
+      validate:{
+        isAlpha:true
+      }
+    },
     lat: DataTypes.DECIMAL,
     lng: DataTypes.DECIMAL
   }, {

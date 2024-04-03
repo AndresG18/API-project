@@ -18,7 +18,8 @@ module.exports = {
         references: {
           model:'Events',
           keyId:'id'
-        }
+        },
+        onDelete:'CASCADE'
       },
       url: {
         type: Sequelize.TEXT
