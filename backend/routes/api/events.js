@@ -41,9 +41,22 @@ router.get('/:eventId', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
+    let { page, size } = req.query;
 
-    const events = await Event.findAll()
+    if (isNaN(page) || page < 1 || page > 10) page = 1
+    if (isNaN(size) || size < 1 || size > 20) size = 20
+
+    const pagination = {
+        limit:size,
+        offset:(page-1) * size
+        }
+
+    const events = await Event.findAll({
+        ...pagination
+    })
+
     const allEvents = []
+
     for (let i = 0; i < events.length; i++) {
         let event = events[i]
 
@@ -71,14 +84,17 @@ router.get('/', async (req, res) => {
             startDate: event.startDate,
             endDate: event.endDate,
             numAttending: numAttending,
-            previewImage: image[0].url,
+            previewImage: image[0],
             group: group || null,
             Venue: venue || null
         }
         allEvents.push(result)
     }
 
-    res.json({ "Events": allEvents })
+    res.json({ 
+        "Events": allEvents,
+        page, 
+    })
 
 });
 
@@ -319,7 +335,53 @@ router.put('/:eventId/attendance', requireAuth, async (req, res) => {
     })
 })
 
-// router.delete('/:eventID')
+router.delete('/:eventId/attendance/:userId', requireAuth, async (req, res) => {
+    const { eventId, userId } = req.params;
+
+    const event = await Event.findByPk(eventId);
+
+    if (!event) return res.status(404).json({ message: "Event couldn't be found" });
+
+    const user = await User.findAll({
+        where: {
+            id: userId
+        }
+    });
+
+    if (user.length < 1) return res.status(404).json({ "message": "User couldn't be found" })
+
+    let membership = await Membership.findAll({
+        where: {
+            groupId: event.groupId,
+            userId: req.user.id,
+        }
+    });
+
+    if (membership.length < 1) return res.status(404).json({ message: "User is not a member of the group" });
+
+    membership = membership[0].toJSON()
+
+    console.log(membership)
+    if (membership.userId !== userId && membership.status !== 'host') return res.status(403).json({ "Forbidden": "You cannot access this page." });
+
+    let attendance = await Attendance.findAll({
+        attributes: ['id', 'eventId', 'userId', 'status'],
+        where: {
+            eventId: eventId,
+            userId: userId,
+        }
+    });
+
+    if (attendance.length < 1) return res.status(404).json({ "message": "Attendance does not exist for this User" });
+
+    attendance = attendance[0];
+
+    await attendance.destroy();
+
+    res.json({
+        "message": "Successfully deleted attendance from event"
+    })
+});
 
 
 module.exports = router

@@ -1,9 +1,9 @@
 const express = require('express')
 const { Group, GroupImage, User, Venue, Event, Attendance, Membership } = require('../../db/models')
-const { Op, ValidationError } = require('sequelize');
+const { Op } = require('sequelize');
 const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
-const { validationResult } = require('express-validator');
+
 
 
 router.get('/', async (req, res) => {
@@ -329,9 +329,9 @@ router.get('/:groupId/members', async (req, res) => {
 
     let members = await group.getUsers({ joinTableAttributes: ['status'] })
 
-    if(membership.length < 1) members = members.filter(member => member.Membership.status !== 'pending')
-    else if((group.organizerId !== userId) && membership[0].status !== 'co-host') members = members.filter(member => member.Membership.status !== 'pending')
-    
+    if (membership.length < 1) members = members.filter(member => member.Membership.status !== 'pending')
+    else if ((group.organizerId !== userId) && membership[0].status !== 'co-host') members = members.filter(member => member.Membership.status !== 'pending')
+
     res.json({ Members: members })
 
 })
@@ -358,7 +358,7 @@ router.post('/:groupId/membership', requireAuth, async (req, res) => {
 
     const membership = await Membership.create({
         userId: userId,
-        groupId:groupId
+        groupId: groupId
     })
 
     res.json({
@@ -440,7 +440,6 @@ router.delete('/:groupId/membership/:memberId', requireAuth, async (req, res) =>
 
     if (member.userId !== userId && membership.status !== 'host') return res.status(403).json({ "Forbidden": "You cannot access this page." })
 
-    // if( userId === memberId || membership)
     await Membership.destroy({
         where: {
             groupId: groupId,
@@ -450,9 +449,6 @@ router.delete('/:groupId/membership/:memberId', requireAuth, async (req, res) =>
     res.json({ "message": "Successfully deleted membership from group" })
 
 })
-
-
-
 
 module.exports = router
 

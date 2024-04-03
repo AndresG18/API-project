@@ -11,7 +11,7 @@ const memberships = [
   {
     userId:3,
     groupId:1,
-    status:"organizer",
+    status:"host",
   }, 
   {
     userId:3,
@@ -26,7 +26,7 @@ const memberships = [
   {
     userId:2,
     groupId:2,
-    status:"organizer",
+    status:"host",
   },
   {
     userId:2,
@@ -51,7 +51,7 @@ const memberships = [
   {
     userId:1,
     groupId:3,
-    status:"organizer",
+    status:"host",
   }
 ]
 
