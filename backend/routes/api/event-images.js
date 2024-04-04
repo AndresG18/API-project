@@ -30,8 +30,7 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
         }
     });
 
-    if (!membership) return res.status(404).json({ "message": "Membership does not exist for this User" });
-
+    if (!membership && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" });
     membership = membership.toJSON();
 
     if (group.organizerId !== userId && membership.status !== 'co-host') {

@@ -480,6 +480,10 @@ router.delete('/:groupId/membership/:memberId', requireAuth, async (req, res) =>
     if(isNaN(groupId)) return res.status(404).json({"message": "Group couldn't be found" });
     if(isNaN(memberId)) return res.status(404).json({"message": "Member couldn't be found" });
 
+    const group = await Group.findByPk(groupId);
+
+    if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
+
     let member = await Membership.findOne({
         where: {
             groupId: groupId,
@@ -491,20 +495,17 @@ router.delete('/:groupId/membership/:memberId', requireAuth, async (req, res) =>
     }
     if (!member) return res.status(404).json({ "message": "User couldn't be found" });
 
-    const group = await Group.findByPk(groupId);
 
-    if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
-
-    let membership = await Membership.findOne({
+    let membership = await Membership.findAll({
         where: {
             groupId: groupId,
             userId: userId,
         }
     });
 
-    if (!membership) return res.status(404).json({ "message": "Membership does not exist for this User" });
+    if (membership.length < 1) return res.status(404).json({ "message": "Membership does not exist for this User" });
 
-    membership = membership.toJSON();
+    membership = membership[0];
 
     if (member.userId !== userId && group.organizerId !== userId ) return res.status(403).json({ "Forbidden": "You cannot access this page." });
 
