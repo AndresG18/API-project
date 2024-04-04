@@ -178,7 +178,7 @@ router.put('/:eventId',requireAuth, async (req, res) => {
         });
     }
 
-    event.update(req.body);
+    await event.update(req.body);
 
     let result = {
         id: event.id,
