@@ -56,7 +56,7 @@ router.post(
       }
     });
 
-    const checkingUsername = await user.findAll({
+    const checkingUsername = await User.findAll({
       where:{
         username:username
       }
