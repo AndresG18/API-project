@@ -23,16 +23,16 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
 
     if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
 
-    let membership = await Membership.findAll({
+    let membership = await Membership.findOne({
         where: {
             groupId: event.groupId,
             userId: userId,
         }
     });
 
-    if (membership.length < 1 && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" });
+    if (!membership) return res.status(404).json({ "message": "Membership does not exist for this User" });
 
-    membership = membership[0];
+    membership = membership.toJSON();
 
     if (group.organizerId !== userId && membership.status !== 'co-host') {
         return res.status(403).json({
