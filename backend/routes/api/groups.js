@@ -76,7 +76,7 @@ router.post('/:groupId/images', requireAuth, async (req, res) => {
     const { groupId } = req.params;
     const userId = req.user.id;
 
-    parseInt(eventId);
+    parseInt(groupId);
     if(isNaN(groupId)) return res.status(404).json({"message": "Group couldn't be found" });
 
     const group = await Group.findByPk(groupId, {

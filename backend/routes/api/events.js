@@ -19,9 +19,12 @@ router.get('/:eventId', async (req, res) => {
         attributes: ['id', 'name', 'city', 'state']
     });
 
+    if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
+    
     const venue = await event.getVenue({
         attributes: ['id', 'city', 'state']
     });
+    if (!venue) return res.status(404).json({ message: "Venue couldn't be found" });
 
     const numAttending = await Attendance.count({
         where: {
@@ -70,9 +73,13 @@ router.get('/', async (req, res) => {
             attributes: ['id', 'name', 'city', 'state']
         });
 
+        if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
+
         const venue = await event.getVenue({
             attributes: ['id', 'city', 'state']
         });
+
+        if (!venue) return res.status(404).json({ message: "Venue couldn't be found" });
 
         const numAttending = await Attendance.count({
             where: {
