@@ -164,13 +164,13 @@ router.put('/:eventId',requireAuth, async (req, res) => {
 
     const event = await Event.findByPk(eventId);
 
-    const venue = await Venue.findByPk(event.venueId);
-
-    const group = await Group.findByPk(event.groupId);
-
     if (!event) return res.status(404).json({ message: " Event couldn't be found." });
 
+    const venue = await Venue.findByPk(event.venueId);
+
     if (!venue) return res.status(404).json({ message: "Venue couldn't be found" });
+
+    const group = await Group.findByPk(event.groupId);
 
     const membership = await Membership.findAll({
         where: {

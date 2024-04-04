@@ -18,18 +18,21 @@ module.exports = {
         references: {
           model:"Venues",
           key:"id"
-        }
+        },
+        allowNull:false
       },
       groupId: {
         type: Sequelize.INTEGER,
         references:{
           model:'Groups',
           key:'id'
-        }
+        },
+        allowNull:false
       },
       name: {
         type: Sequelize.STRING,
         allowNull:false,
+
       },
       description: {
         type: Sequelize.TEXT
@@ -39,10 +42,12 @@ module.exports = {
         allowNull:false
       },
       capacity: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull:false
       },
       price: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL,
+        allowNull:false
       },
       startDate: {
         type: Sequelize.DATE,
