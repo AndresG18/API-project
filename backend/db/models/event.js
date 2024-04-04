@@ -32,8 +32,14 @@ module.exports = (sequelize, DataTypes) => {
     //   primaryKey: true,
     //   type: DataTypes.INTEGER
     // },
-    venueId: DataTypes.INTEGER,
-    groupId: DataTypes.INTEGER,
+    venueId: {
+      type:DataTypes.INTEGER,
+      allowNull:false
+    },
+    groupId: {
+      type:DataTypes.INTEGER,
+      allowNull:false
+    },
     name: {
       type:DataTypes.STRING,
       allowNull:false
@@ -43,7 +49,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull:false
     },
-    capacity: DataTypes.INTEGER,
+    capacity: {
+      type:DataTypes.INTEGER,
+      allowNull:false
+    },
     price: DataTypes.DECIMAL,
     startDate:{ 
       type:DataTypes.DATE,

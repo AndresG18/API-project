@@ -89,6 +89,7 @@ const validateLogin = [
         .withMessage('Please provide a valid email or username.'),
     check('password')
         .exists({ checkFalsy: true })
+        .notEmpty()
         .withMessage('Please provide a password.'),
     handleValidationErrors
 ];
@@ -113,7 +114,7 @@ router.post(
             const err = new Error('Login failed');
             err.status = 401;
             err.title = 'Login failed';
-            err.errors = { credential: 'The provided credentials were invalid.' };
+            err.errors = { credential: '"Invalid credentials"' };
             return next(err);
         }
 

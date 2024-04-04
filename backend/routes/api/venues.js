@@ -10,6 +10,8 @@ router.put('/:venueId', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const { venueId } = req.params
 
+    if(isNaN(venueId)) return res.status(404).json({ "message": "Venue couldn't be found"});
+
     const venue = await Venue.findByPk(venueId, {
         attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng']
     })
@@ -20,8 +22,9 @@ router.put('/:venueId', requireAuth, async (req, res) => {
             "message": "Venue couldn't be found"
         })
     }
-    let group1 = await venue.getGroup()
-    let group = group1.toJSON()
+    let group= await venue.getGroup()
+
+    group = group.toJSON()
 
     const membership = await Membership.findAll({
         where: {
