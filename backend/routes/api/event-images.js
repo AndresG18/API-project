@@ -25,12 +25,12 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
 
     let membership = await Membership.findOne({
         where: {
-            groupId: group.id,
+            groupId: event.groupId,
             userId: userId,
         }
     });
 
-    if (!membership && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" }); this User" });
+    if (!membership && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" });
 
     membership = membership.toJSON();
 
