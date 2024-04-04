@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
         let result = {
             ...group,
             numMembers,
-            previewImage: image[0]
+            previewImage: image[0].url
         };
 
         all.push(result);
@@ -62,7 +62,7 @@ router.get('/current', requireAuth, async (req, res) => {
         let result = {
             ...group,
             numMembers,
-            previewImage: image[0]
+            previewImage: image[0].url
         };
 
         all.push(result);
@@ -358,7 +358,7 @@ router.get('/:groupId/events', async (req, res) => {
 router.post('/:groupId/events', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const groupId = req.params.groupId;
-    const { venueId } = req.body;
+    const { venueId ,name , type , capacity,price,description,startDate,endDate} = req.body;
 
     parseInt(groupId);
     if (isNaN(groupId)) return res.status(404).json({ "message": "Group couldn't be found" });
