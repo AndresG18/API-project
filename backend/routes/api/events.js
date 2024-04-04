@@ -135,9 +135,9 @@ router.post('/:eventId/images', requireAuth, async (req, res) => {
         }
     });
 
-    if (membership.length < 1) return res.status(404).json({ message: "User does not have permissions" });
+    if (membership.length < 1 && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" });
 
-    if ((group.organizerId !== userId) && membership[0].status !== ('co-host' || 'attendee')) {
+    if (group.organizerId !== userId && membership[0].status !== ('co-host' || 'attendee')) {
         return res.status(403).json({
             error: " Forbidden : Only attendees, group organizers or co-hosts can access this page."
         });
@@ -180,7 +180,7 @@ router.put('/:eventId',requireAuth, async (req, res) => {
     });
 
 
-    if (membership.length < 1) return res.status(403).json({ message: "User does not have permissions" });
+    if (membership.length < 1 && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" });
 
     if ((group.organizerId !== userId) && membership[0].status !== 'co-host') {
         return res.status(403).json({
@@ -228,7 +228,7 @@ router.delete('/:eventId', requireAuth,async (req, res) => {
         }
     });
 
-    if (membership.length < 1) return res.status(403).json({ message: "User does not have permissions" });
+    if (membership.length < 1) return res.status(403).json({ message: "User does not have this permission" });
 
     if ((group.organizerId !== userId) && membership[0].status !== 'co-host') {
         return res.status(403).json({
@@ -343,7 +343,7 @@ router.put('/:eventId/attendance', requireAuth, async (req, res) => {
         }
     });
 
-    if (membership.length < 1) return res.status(403).json({ message: "User is not a member of the group" });
+    if (membership.length < 1 && group.organizerId !== userId) return res.status(403).json({ message: "User is not a member of the group" });
 
     if ((group.organizerId !== userId) && membership[0].status !== 'co-host') {
         return res.status(403).json({
@@ -395,6 +395,8 @@ router.delete('/:eventId/attendance/:userId', requireAuth, async (req, res) => {
 
     if (!event) return res.status(404).json({ message: "Event couldn't be found" });
 
+    const group = await event.getGroup()
+
     const user = await User.findAll({
         where: {
             id: userId
@@ -410,7 +412,7 @@ router.delete('/:eventId/attendance/:userId', requireAuth, async (req, res) => {
         }
     });
 
-    if (membership.length < 1) return res.status(403).json({ message: "User is not a member of the group" });
+    if (membership.length < 1 && req.user.id !== group.organizerId) return res.status(403).json({ message: "User is not a member of the group" });
 
     membership = membership[0].toJSON();
 

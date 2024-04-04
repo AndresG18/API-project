@@ -9,9 +9,9 @@ const { validationResult } = require('express-validator');
 router.put('/:venueId', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const { venueId } = req.params
-    
+
     parseInt(venueId)
-    if(isNaN(venueId)) return res.status(404).json({ "message": "Venue couldn't be found"});
+    if (isNaN(venueId)) return res.status(404).json({ "message": "Venue couldn't be found" });
 
     const venue = await Venue.findByPk(venueId, {
         attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng']
@@ -23,7 +23,7 @@ router.put('/:venueId', requireAuth, async (req, res) => {
             "message": "Venue couldn't be found"
         })
     }
-    let group= await venue.getGroup()
+    let group = await venue.getGroup()
 
     group = group.toJSON()
 
@@ -33,6 +33,8 @@ router.put('/:venueId', requireAuth, async (req, res) => {
             userId: userId,
         }
     })
+
+    if (membership.length < 1 && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" });
 
     if (group.organizerId !== userId && membership[0].status !== 'co-host') {
         return res.status(403).json({

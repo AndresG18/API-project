@@ -19,10 +19,12 @@ module.exports = {
           model:'Groups',
           key:'id'
         },
-        onDelete:'CASCADE'
+        onDelete:'CASCADE',
+        allowNull:false
       },
       url: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull:false
       },
       preview: {
         type: Sequelize.BOOLEAN,

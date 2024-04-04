@@ -47,8 +47,14 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.BOOLEAN,
       allowNull:false
     },
-    city: DataTypes.STRING,
-    state: DataTypes.STRING
+    city: {
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+    state:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
   }, {
     sequelize,
     modelName: 'Group',

@@ -13,7 +13,7 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
 
     const image = await GroupImage.findByPk(imageId);
 
-    if (!image) return res.status(404).json({ "message": "Event Image couldn't be found" });
+    if (!image) return res.status(404).json({ "message": "Group Image couldn't be found" });
 
     const group = await Group.findByPk(image.groupId);
 
@@ -26,7 +26,7 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
         }
     });
 
-    if (!membership) return res.status(404).json({ "message": "Membership does not exist for this User" });
+    if (!membership && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" });
 
     membership = membership.toJSON();
 
