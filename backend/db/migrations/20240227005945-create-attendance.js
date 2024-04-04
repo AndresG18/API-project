@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model:'Events',
-          keyId:'id'
+          key:'id'
         },
         onDelete:'CASCADE'
       },
@@ -25,8 +25,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model:'Users',
-          keyId:'id'
-        }
+          key:'id'
+        },
+        onDelete:'CASCADE'
       },
       status: {
         type: Sequelize.STRING(10),

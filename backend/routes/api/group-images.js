@@ -12,7 +12,6 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
     if(isNaN(imageId)) return res.status(404).json({"message": "Group Image couldn't be found" });
 
     const image = await GroupImage.findByPk(imageId);
-    console.log(image)
 
     if (!image) return res.status(404).json({ "message": "Event Image couldn't be found" });
 

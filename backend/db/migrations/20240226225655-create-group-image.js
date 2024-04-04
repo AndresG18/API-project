@@ -17,8 +17,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model:'Groups',
-          keyId:'id'
-        }
+          key:'id'
+        },
+        onDelete:'CASCADE'
       },
       url: {
         type: Sequelize.TEXT
