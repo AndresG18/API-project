@@ -8,6 +8,7 @@ const group = require('../../db/models/group');
 router.get('/:eventId', async (req, res) => {
     const { eventId } = req.params;
 
+    parseInt(eventId);
     if(isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
 
     const event = await Event.findByPk(eventId);
@@ -109,6 +110,7 @@ router.post('/:eventId/images', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const { eventId } = req.params;
 
+    parseInt(eventId);
     if(isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
 
     const event = await Event.findByPk(eventId);
@@ -150,6 +152,7 @@ router.put('/:eventId',requireAuth, async (req, res) => {
     const userId = req.user.id;
     const { eventId } = req.params;
 
+    parseInt(eventId);
     if(isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
 
     const event = await Event.findByPk(eventId);
@@ -200,6 +203,7 @@ router.delete('/:eventId', requireAuth,async (req, res) => {
     const userId = req.user.id;
     const eventId = req.params.eventId;
 
+    parseInt(eventId);
     if(isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
 
     const event = await Event.findByPk(eventId);
@@ -236,6 +240,7 @@ router.get('/:eventId/attendees', async (req, res) => {
     const userId = req.user.id;
     const eventId = req.params.eventId;
 
+    parseInt(eventId);
     if(isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
 
     const event = await Event.findByPk(eventId);
@@ -262,6 +267,7 @@ router.post('/:eventId/attendance', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const eventId = req.params.eventId;
 
+    parseInt(eventId);
     if(isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
 
     const event = await Event.findByPk(eventId);
@@ -306,6 +312,7 @@ router.put('/:eventId/attendance', requireAuth, async (req, res) => {
     const { userId, status } = req.body;
     const eventId = req.params.eventId;
 
+    parseInt(eventId);
     if(isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
 
     const event = await Event.findByPk(eventId);
@@ -370,7 +377,12 @@ router.put('/:eventId/attendance', requireAuth, async (req, res) => {
 router.delete('/:eventId/attendance/:userId', requireAuth, async (req, res) => {
     const { eventId, userId } = req.params;
 
+    parseInt(eventId);
+    parseInt(userId);
+
     if(isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
+
+    if(isNaN(userId)) return res.status(404).json({ "message": "User couldn't be found" });
 
     const event = await Event.findByPk(eventId);
 

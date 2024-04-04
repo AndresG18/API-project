@@ -8,8 +8,10 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
     const imageId = req.params.imageId;
     const userId = req.user.id;
 
+    parseInt(imageId);
+    if(isNaN(imageId)) return res.status(404).json({"message": "Event Image couldn't be found" });
+
     const image = await EventImage.findByPk(imageId);
-    console.log(image)
 
     if (!image) return res.status(404).json({ "message": "Event Image couldn't be found" });
 

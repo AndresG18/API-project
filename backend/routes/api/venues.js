@@ -9,7 +9,8 @@ const { validationResult } = require('express-validator');
 router.put('/:venueId', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const { venueId } = req.params
-
+    
+    parseInt(venueId)
     if(isNaN(venueId)) return res.status(404).json({ "message": "Venue couldn't be found"});
 
     const venue = await Venue.findByPk(venueId, {
