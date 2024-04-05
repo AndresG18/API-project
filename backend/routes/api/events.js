@@ -162,6 +162,7 @@ router.post('/:eventId/images', requireAuth, async (req, res) => {
 router.put('/:eventId', requireAuth, validateEvent, async (req, res) => {
     const userId = req.user.id;
     const { eventId } = req.params;
+    const venueId = req.body.venueId
 
     parseInt(eventId);
     if (isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
@@ -170,11 +171,13 @@ router.put('/:eventId', requireAuth, validateEvent, async (req, res) => {
 
     if (!event) return res.status(404).json({ message: " Event couldn't be found." });
 
-    const venue = await Venue.findByPk(event.venueId);
+    const venue = await Venue.findByPk(venueId);
 
     if (!venue) return res.status(404).json({ message: "Venue couldn't be found" });
 
-    const group = await Group.findByPk(event.groupId);
+    let group = await Group.findByPk(event.groupId);
+
+    if(group)group = group.toJSON()
 
     const membership = await Membership.findAll({
         where: {

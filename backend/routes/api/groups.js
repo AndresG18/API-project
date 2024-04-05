@@ -259,11 +259,12 @@ router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res) => 
     parseInt(groupId);
     if (isNaN(groupId)) return res.status(404).json({ "message": "Group couldn't be found" });
 
-    const group = await Group.findByPk(groupId);
+    let group = await Group.findByPk(groupId);
 
     if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
+    else group = group.toJSON();
 
-    const membership = await Membership.findAll({
+    let membership = await Membership.findAll({
         where: {
             groupId: group.id,
             userId: userId
@@ -271,8 +272,9 @@ router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res) => 
     });
 
     if (membership.length < 1 && group.organizerId !== userId)  return res.status(403).json({ "message": "Forbidden" });
+    else membership = membership[0].toJSON()
 
-    if (group.organizerId !== userId && membership[0].status !== 'co-host') {
+    if (group.organizerId !== userId && membership.status !== 'co-host') {
         return res.status(403).json({ "message": "Forbidden" });
     }
     const venues = await Venue.create(
@@ -360,17 +362,17 @@ router.get('/:groupId/events', async (req, res) => {
 router.post('/:groupId/events', requireAuth,validateEvent, async (req, res) => {
     const userId = req.user.id;
     const groupId = req.params.groupId;
+    const venueId = req.body.venueId
 
     parseInt(groupId);
     if (isNaN(groupId)) return res.status(404).json({ "message": "Group couldn't be found" });
 
-    const group = await Group.findByPk(groupId);
+    let group = await Group.findByPk(groupId);
 
     if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
+    else group = group.toJSON();
 
-    const venue = await Venue.findOne({
-        groupId: group.id
-    });
+   const venue = await Venue.findByPk(venueId)
 
     if (!venue) return res.status(404).json({ "message": "Venue couldn't be found" });
 
@@ -382,8 +384,9 @@ router.post('/:groupId/events', requireAuth,validateEvent, async (req, res) => {
     });
 
     if (membership.length < 1 && group.organizerId !== userId) return res.status(403).json({ "message": "Forbidden" });
+    else membership = membership[0].toJSON()
 
-    if (group.organizerId !== userId && membership[0].status !== 'co-host') {
+    if (group.organizerId !== userId && membership.status !== 'co-host') {
         return res.status(403).json({ "message": "Forbidden" });
     }
     const event = await group.createEvent(req.body);
@@ -499,7 +502,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res) => {
 
     if (memberships.length < 1 && group.organizerId !== userId) return res.status(403).json({ "message": "Forbidden" });
 
-    const membership = memberships[0];
+    const membership = memberships[0].toJSON();
 
     if ((group.organizerId !== userId) && membership.status !== 'co-host') {
         return res.status(403).json({ "message": "Forbidden" });
