@@ -55,13 +55,16 @@ router.get('/', async (req, res) => {
     if (isNaN(page) || page < 1 || page > 10) errors.page = "Page must be an integer between 1 and 10";
     if (isNaN(size) || size < 1 || size > 20) errors.size = "Size must be an integer between 1 and 20";
     if (name && typeof name !== 'string' || !isNaN(name)) errors.name = "Name must be a string";
-    if (type && !['Online', 'In Person'].includes(type)) errors.type = "Type must be 'Online' or 'In Person'";
+    if (type && !(type.includes('In person' || 'Online'))) errors.type = "Type must be 'Online' or 'In person'";
     if (startDate && isNaN(Date.parse(startDate))) errors.startDate = "Start date must be a valid date";
 
     if (Object.keys(errors).length > 0) return res.status(400).json({
         message: "Bad Request",
         errors
     });
+
+    page = parseInt(page);
+    size = parseInt(size);
 
     const pagination = {
         limit: size,
@@ -97,11 +100,11 @@ router.get('/', async (req, res) => {
 
         if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
 
-        const venue = await event.getVenue({
+        let venue = await event.getVenue({
             attributes: ['id', 'city', 'state']
         });
 
-        if (!venue) return res.status(404).json({ message: "Venue couldn't be found" });
+        if (!venue) venue = {venueId:null}
 
         const numAttending = await Attendance.count({
             where: {
@@ -119,6 +122,7 @@ router.get('/', async (req, res) => {
         let result = {
             id: event.id,
             groupId: group.id,
+            venueId:venue.id,
             name: event.name,
             type: event.type,
             startDate: event.startDate,
@@ -133,7 +137,8 @@ router.get('/', async (req, res) => {
 
     res.json({
         "Events": allEvents,
-        page,
+        page:page,
+        size:size,
     });
 });
 
