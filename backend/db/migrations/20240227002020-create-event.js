@@ -19,7 +19,7 @@ module.exports = {
           model:"Venues",
           key:"id"
         },
-        allowNull:false,
+        // allowNull:false,
         onDelete:'CASCADE'
       },
       groupId: {
@@ -28,7 +28,7 @@ module.exports = {
           model:'Groups',
           key:'id'
         },
-        allowNull:false,
+        // allowNull:false,
         onDelete:'CASCADE'
       },
       name: {

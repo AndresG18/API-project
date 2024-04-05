@@ -30,13 +30,11 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
         }
     });
 
-    if (!membership && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" });
+    if (!membership && group.organizerId !== userId) return res.status(403).json({ "message": "Forbidden" });
     membership = membership.toJSON();
 
     if (group.organizerId !== userId && membership.status !== 'co-host') {
-        return res.status(403).json({
-            error: " Forbidden : Only group organizers or co-hosts can access this page."
-        })
+        return res.status(403).json({ "message": "Forbidden" })
     };
 
     await image.destroy();

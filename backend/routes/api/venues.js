@@ -17,12 +17,8 @@ router.put('/:venueId', requireAuth, async (req, res) => {
         attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng']
     })
 
-    if (!venue) {
-        res.status(404)
-        return res.json({
-            "message": "Venue couldn't be found"
-        })
-    }
+    if (!venue) return res.status(404).json({"message": "Venue couldn't be found"})
+    
     let group = await venue.getGroup()
 
     group = group.toJSON()
@@ -34,12 +30,10 @@ router.put('/:venueId', requireAuth, async (req, res) => {
         }
     })
 
-    if (membership.length < 1 && group.organizerId !== userId) return res.status(403).json({ message: "User does not have this permission" });
+    if (membership.length < 1 && group.organizerId !== userId)  return res.status(403).json({ "message": "Forbidden" });
 
     if (group.organizerId !== userId && membership[0].status !== 'co-host') {
-        return res.status(403).json({
-            error: " Forbidden : Only group organizers or co-hosts can access this page."
-        });
+        return res.status(403).json({ "message": "Forbidden" });
     }
 
     const { address, city, state, lat, lng } = req.body;

@@ -41,7 +41,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     type: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      validate:{
+        isIn:[['In person','Online']]
+      }
     },
     private: {
       type:DataTypes.BOOLEAN,

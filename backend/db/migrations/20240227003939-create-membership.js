@@ -20,7 +20,7 @@ module.exports = {
           key:'id'
         },
         onDelete:'CASCADE',
-        allowNull:false
+        // allowNull:false
       },
       groupId: {
         type: Sequelize.INTEGER,
@@ -29,7 +29,7 @@ module.exports = {
           key:'id'
         },
         onDelete:'CASCADE',
-        allowNull:false
+        // allowNull:false
       },
       status: {
         type: Sequelize.STRING,

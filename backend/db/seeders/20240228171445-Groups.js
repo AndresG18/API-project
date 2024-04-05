@@ -11,7 +11,7 @@ const groups = [
     organizerId: 3,
     name: 'Nutrition and Health',
     about: "Learn about diet, physical health and how to manage your weight in a healthy way.",
-    type: 'Health',
+    type: 'In person',
     private: false,
     city: 'Phoenix',
     state: 'Arizona'
@@ -20,7 +20,7 @@ const groups = [
     organizerId: 2,
     name: 'SkinCare',
     about: "Skincare and how to take care of certain skin types as well as how to handle specific skin issues like breakouts,scarring,sun damge etc. with our events and talks.",
-    type: 'Beauty',
+    type: 'In person',
     private: true,
     city: 'Chandler',
     state: 'Arizona'
@@ -28,7 +28,7 @@ const groups = [
     organizerId: 1,
     name: 'Games n Fun',
     about: "Play video games,board games and have fun with friends.",
-    type: 'Entertainment',
+    type: 'In person',
     private: false,
     city: 'Maricopa',
     state: 'Arizona'
