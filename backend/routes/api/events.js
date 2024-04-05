@@ -4,6 +4,7 @@ const { requireAuth } = require('../../utils/auth');
 const { Group, GroupImage, User, Venue, Attendance, EventImage, Membership, Event } = require('../../db/models');
 const { validateEvent } = require('../../utils/validation')
 const group = require('../../db/models/group');
+const { Op } = require("sequelize")
 
 // GET Single Event by id *
 router.get('/:eventId', async (req, res) => {
@@ -46,18 +47,42 @@ router.get('/:eventId', async (req, res) => {
 
 // GET All Events with Pagination *
 router.get('/', async (req, res) => {
-    let { page, size } = req.query;
+    let { page, size, name, type, startDate } = req.query;
+    const errors = {};
 
-    if (isNaN(page) || page < 1 || page > 10) page = 1;
-    if (isNaN(size) || size < 1 || size > 20) size = 20;
+    if (!page || page < 1 || page > 10) page = 1;
+    if (!size || size < 1 || size > 20) size = 20;
+    if (isNaN(page) || page < 1 || page > 10) errors.page = "Page must be an integer between 1 and 10";
+    if (isNaN(size) || size < 1 || size > 20) errors.size = "Size must be an integer between 1 and 20";
+    if (name && typeof name !== 'string' || !isNaN(name)) errors.name = "Name must be a string";
+    if (type && !['Online', 'In Person'].includes(type)) errors.type = "Type must be 'Online' or 'In Person'";
+    if (startDate && isNaN(Date.parse(startDate))) errors.startDate = "Start date must be a valid date";
 
+    if (Object.keys(errors).length > 0) return res.status(400).json({
+        message: "Bad Request",
+        errors
+    });
 
     const pagination = {
         limit: size,
         offset: (page - 1) * size
     };
 
+    const where = {};
+
+    // Optional filters
+    if (name) {
+        where.name = { [Op.like]: `%${name}%` };
+    }
+    if (type) {
+        where.type = type;
+    }
+    if (startDate) {
+        where.startDate = { [Op.gte]: startDate };
+    }
+
     const events = await Event.findAll({
+        where,
         ...pagination
     });
 
@@ -284,16 +309,16 @@ router.post('/:eventId/attendance', requireAuth, async (req, res) => {
     if (!event) return res.status(404).json({ message: "Event couldn't be found" });
 
     let isMember = await Membership.findAll({
-        where:{
-            groupId:event.groupId,
-            userId:userId
+        where: {
+            groupId: event.groupId,
+            userId: userId
         }
     });
 
     const group = await Group.findByPk(event.groupId);
 
-    if((isMember.length < 1 ||isMember[0].status === 'pending' ) && group.organizerId !== userId )return res.status(403).json({ "message": "Forbidden" });
- 
+    if ((isMember.length < 1 || isMember[0].status === 'pending') && group.organizerId !== userId) return res.status(403).json({ "message": "Forbidden" });
+
 
     let attendance = await Attendance.findAll({
         where: {
