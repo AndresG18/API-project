@@ -13,7 +13,7 @@ router.get('/:eventId', async (req, res) => {
     parseInt(eventId);
     if (isNaN(eventId)) return res.status(404).json({ "message": "Event couldn't be found" });
 
-    const event = await Event.findByPk(eventId);
+    let event = await Event.findByPk(eventId);
 
     if (!event) return res.status(404).json({ message: "Event couldn't be found." });
 
@@ -33,9 +33,19 @@ router.get('/:eventId', async (req, res) => {
 
     const image = await event.getEventImages({ attributes: ['id', 'url', 'preview'] });
 
-    const eventPojo = await event.toJSON();
+     event = await event.toJSON();
+
     const result = {
-        ...eventPojo,
+        id : event.id,
+        groupId:event.groupId || null,
+        venueId:event.venueId || null,
+        name: event.name,
+        description: event.description,
+        type: event.type,
+        capacity: event.capacity,
+        price: event.price,
+        startDate: event.startDate.toUTCString(),
+        endDate: event.endDate.toUTCString(),
         numAttending: numAttending,
         Group: group || null,
         Venue: venue || null,
@@ -125,8 +135,8 @@ router.get('/', async (req, res) => {
             venueId:venue.id,
             name: event.name,
             type: event.type,
-            startDate: event.startDate,
-            endDate: event.endDate,
+            startDate: event.startDate.toUTCString(),
+            endDate: event.endDate.toUTCString(),
             numAttending: numAttending,
             previewImage: image,
             group: group || null,
@@ -232,8 +242,8 @@ router.put('/:eventId', requireAuth, validateEvent, async (req, res) => {
         capacity: event.capacity,
         price: event.price,
         description: event.description,
-        startDate: event.startDate,
-        endDate: event.endDate
+        startDate: event.startDate.toUTCString(),
+        endDate: event.endDate.toUTCString()
     };
 
     res.json(result);
