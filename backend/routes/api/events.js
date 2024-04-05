@@ -26,7 +26,7 @@ router.get('/:eventId', async (req, res) => {
 
     const numAttending = await Attendance.count({
         where: {
-            eventId: event.id
+            eventId: eventId
         }
     });
 
@@ -51,7 +51,7 @@ router.get('/', async (req, res) => {
     if (isNaN(page) || page < 1 || page > 10) page = 1;
     if (isNaN(size) || size < 1 || size > 20) size = 20;
 
-    
+
     const pagination = {
         limit: size,
         offset: (page - 1) * size
@@ -187,7 +187,7 @@ router.put('/:eventId', requireAuth, validateEvent, async (req, res) => {
     await event.update(req.body);
 
     let result = {
-        id: event.id,
+        id: eventId,
         venueId: event.venueId,
         name: event.name,
         type: event.type,
