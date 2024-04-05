@@ -142,7 +142,6 @@ router.post('/:eventId/images', requireAuth, async (req, res) => {
     if (attendance.length > 0) attendance = attendance[0].toJSON();
     else attendance = { status: null }
 
-    console.log(attendance, "-------------")
     if (group.organizerId !== userId && membership[0].status !== 'co-host' && attendance.status !== 'attending') {
         return res.status(403).json({ "message": "Forbidden" });
     }
@@ -175,9 +174,9 @@ router.put('/:eventId', requireAuth, validateEvent, async (req, res) => {
 
     if (!venue) return res.status(404).json({ message: "Venue couldn't be found" });
 
-    let group = await Group.findByPk(event.groupId);
+    const group = await Group.findByPk(event.groupId);
 
-    if(group)group = group.toJSON()
+    if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
 
     const membership = await Membership.findAll({
         where: {
@@ -187,7 +186,7 @@ router.put('/:eventId', requireAuth, validateEvent, async (req, res) => {
     });
 
 
-    if (membership.length < 1 && group.organizerId !== organizerId) return res.status(403).json({ "message": "Forbidden" });
+    if (membership.length < 1 && group.organizerId !== userId) return res.status(403).json({ "message": "Forbidden" });
 
     if ((group.organizerId !== userId) && membership[0].status !== 'co-host') {
         return res.status(403).json({ "message": "Forbidden" });
@@ -284,16 +283,29 @@ router.post('/:eventId/attendance', requireAuth, async (req, res) => {
 
     if (!event) return res.status(404).json({ message: "Event couldn't be found" });
 
-    const attendance = await Attendance.findAll({
+    let isMember = await Membership.findAll({
+        where:{
+            groupId:event.groupId,
+            userId:userId
+        }
+    });
+
+    const group = await Group.findByPk(event.groupId);
+
+    if((isMember.length < 1 ||isMember[0].status === 'pending' ) && group.organizerId !== userId )return res.status(403).json({ "message": "Forbidden" });
+ 
+
+    let attendance = await Attendance.findAll({
         where: {
             eventId: eventId,
             userId: userId
         }
     });
 
-    if (attendance.length == 1) {
-        if (attendance[0].status === 'pending') return res.status(400).json({ "message": "Attendance has already been requested" });
-        if (attendance[0].status === 'attending') return res.status(400).json({ "message": "User is already an attendee of the event" });
+    if (attendance.length > 0) {
+        attendance = attendance[0].toJSON()
+        if (attendance.status === 'pending') return res.status(400).json({ "message": "Attendance has already been requested" });
+        if (attendance.status === 'attending') return res.status(400).json({ "message": "User is already an attendee of the event" });
         else return res.status(404).json({ message: "User already has an attendance status, edit or remove the existing one." });
     }
 
@@ -396,7 +408,6 @@ router.delete('/:eventId/attendance/:userId', requireAuth, async (req, res) => {
 
     if (group !== null) group = group.toJSON()
 
-    console.log(userId, myId)
     if (userId != myId && group.organizerId !== myId) return res.status(403).json({ "message": "Forbidden" });;
 
     let attendance = await Attendance.findAll({
