@@ -242,8 +242,8 @@ router.put('/:eventId', requireAuth, validateEvent, async (req, res) => {
         capacity: event.capacity,
         price: event.price,
         description: event.description,
-        startDate: event.startDate,
-        endDate: event.endDate
+        startDate: event.startDate.toUTCString(),
+        endDate: event.endDate.toUTCString()
     };
 
     res.json(result);

@@ -126,10 +126,6 @@ router.post('/', requireAuth, validateGroup, async (req, res) => {
         state: state
     });
 
-
-    group.createdAt = group.createdAt.toUTCString();
-    group.updatedAt = group.updatedAt.toUTCString();
-
     await group.save()
 
     res.status(201).json(group);
@@ -297,12 +293,6 @@ router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res) => 
         },
     });
 
-
-    venue.createdAt = group.createdAt.toUTCString();
-    venue.updatedAt = group.updatedAt.toUTCString();
-
-    await venue.save();
-
     res.json({
         id: venue.id,
         groupId: venue.groupId,
@@ -400,11 +390,9 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res) => 
     if (group.organizerId !== userId && membership.status !== 'co-host') {
         return res.status(403).json({ "message": "Forbidden" });
     }
+
     const event = await group.createEvent(req.body);
-
-    event.startDate = event.startDate.toUTCString();
-    event.endDate = event.endDate.toUTCString();
-
+    
     let result = {
         id: event.id,
         groupId: group.id,
@@ -414,8 +402,8 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res) => 
         capacity: event.capacity,
         price: event.price,
         description: event.description,
-        startDate: event.startDate,
-        endDate: event.endDate
+        startDate: event.startDate.toUTCString(),
+        endDate: event.endDate.toUTCString()
     };
 
     res.json(result);
