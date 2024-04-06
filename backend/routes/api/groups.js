@@ -126,8 +126,6 @@ router.post('/', requireAuth, validateGroup, async (req, res) => {
         state: state
     });
 
-    await group.save()
-
     res.status(201).json(group);
 });
 
@@ -348,8 +346,8 @@ router.get('/:groupId/events', async (req, res) => {
             venueId: event.venueId,
             name: event.name,
             type: event.type,
-            startDate: event.startDate.toUTCString(),
-            endDate: event.endDate.toUTCString(),
+            startDate: event.startDate,
+            endDate: event.endDate,
             numAttending: numAttending,
             previewImage: image,
             Group: group || null,
@@ -402,8 +400,8 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res) => 
         capacity: event.capacity,
         price: event.price,
         description: event.description,
-        startDate: event.startDate.toUTCString(),
-        endDate: event.endDate.toUTCString()
+        startDate: event.startDate,
+        endDate: event.endDate
     };
 
     res.json(result);

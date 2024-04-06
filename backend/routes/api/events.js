@@ -44,8 +44,8 @@ router.get('/:eventId', async (req, res) => {
         type: event.type,
         capacity: event.capacity,
         price: event.price,
-        startDate: event.startDate.toUTCString(),
-        endDate: event.endDate.toUTCString(),
+        startDate: event.startDate,
+        endDate: event.endDate,
         numAttending: numAttending,
         Group: group || null,
         Venue: venue || null,
@@ -135,8 +135,8 @@ router.get('/', async (req, res) => {
             venueId:venue.id,
             name: event.name,
             type: event.type,
-            startDate: event.startDate.toUTCString(),
-            endDate: event.endDate.toUTCString(),
+            startDate: event.startDate,
+            endDate: event.endDate,
             numAttending: numAttending,
             previewImage: image,
             group: group || null,
@@ -242,8 +242,8 @@ router.put('/:eventId', requireAuth, validateEvent, async (req, res) => {
         capacity: event.capacity,
         price: event.price,
         description: event.description,
-        startDate: event.startDate.toUTCString(),
-        endDate: event.endDate.toUTCString()
+        startDate: event.startDate,
+        endDate: event.endDate
     };
 
     res.json(result);
