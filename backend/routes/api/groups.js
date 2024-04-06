@@ -116,7 +116,7 @@ router.post('/', requireAuth, validateGroup, async (req, res) => {
     const { name, about, type, private, city, state } = req.body;
     const organizerId = req.user.id;
 
-    const newGroup = await Group.create({
+    const group = await Group.create({
         organizerId: organizerId,
         name: name,
         about: about,
@@ -127,7 +127,12 @@ router.post('/', requireAuth, validateGroup, async (req, res) => {
     });
 
 
-    res.status(201).json(newGroup);
+    group.createdAt = group.createdAt.toUTCString();
+    group.updatedAt = group.updatedAt.toUTCString();
+
+    await group.save()
+
+    res.status(201).json(group);
 });
 
 // POST group images
@@ -278,7 +283,7 @@ router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res) => 
     if (group.organizerId !== userId && membership.status !== 'co-host') {
         return res.status(403).json({ "message": "Forbidden" });
     }
-    const venues = await Venue.create(
+    const venue = await Venue.create(
         {
             groupId,
             address,
@@ -292,14 +297,20 @@ router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res) => 
         },
     });
 
+
+    venue.createdAt = group.createdAt.toUTCString();
+    venue.updatedAt = group.updatedAt.toUTCString();
+
+    await venue.save();
+
     res.json({
-        id: venues.id,
-        groupId: venues.groupId,
-        address: venues.address,
-        city: venues.city,
-        state: venues.state,
-        lat: venues.lat,
-        lng: venues.lng
+        id: venue.id,
+        groupId: venue.groupId,
+        address: venue.address,
+        city: venue.city,
+        state: venue.state,
+        lat: venue.lat,
+        lng: venue.lng
     });
 });
 
@@ -390,6 +401,9 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res) => 
         return res.status(403).json({ "message": "Forbidden" });
     }
     const event = await group.createEvent(req.body);
+
+    event.startDate = event.startDate.toUTCString();
+    event.endDate = event.endDate.toUTCString();
 
     let result = {
         id: event.id,
@@ -496,7 +510,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res) => {
     });
 
     const members = await Membership.findAll({
-        attributes:['id','groupId','userId','status'],
+        attributes: ['id', 'groupId', 'userId', 'status'],
         where: {
             groupId: groupId,
             userId: memberId,

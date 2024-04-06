@@ -2,11 +2,12 @@ const express = require('express')
 const { Group, GroupImage, User, Venue, Attendace, EventImage, Membership, Event } = require('../../db/models')
 const { Op } = require('sequelize');
 const { requireAuth } = require('../../utils/auth');
+const { validateVenue } = require('../../utils/validation')
 const router = express.Router();
 const { validationResult } = require('express-validator');
 
 
-router.put('/:venueId', requireAuth, async (req, res) => {
+router.put('/:venueId', requireAuth, validateVenue, async (req, res) => {
     const userId = req.user.id;
     const { venueId } = req.params
 
@@ -17,8 +18,8 @@ router.put('/:venueId', requireAuth, async (req, res) => {
         attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng']
     })
 
-    if (!venue) return res.status(404).json({"message": "Venue couldn't be found"})
-    
+    if (!venue) return res.status(404).json({ "message": "Venue couldn't be found" })
+
     let group = await venue.getGroup()
 
     group = group.toJSON()
@@ -30,7 +31,7 @@ router.put('/:venueId', requireAuth, async (req, res) => {
         }
     })
 
-    if (membership.length < 1 && group.organizerId !== userId)  return res.status(403).json({ "message": "Forbidden" });
+    if (membership.length < 1 && group.organizerId !== userId) return res.status(403).json({ "message": "Forbidden" });
 
     if (group.organizerId !== userId && membership[0].status !== 'co-host') {
         return res.status(403).json({ "message": "Forbidden" });
@@ -46,7 +47,17 @@ router.put('/:venueId', requireAuth, async (req, res) => {
 
     await venue.save()
 
-    res.json(venue)
+    let result = {
+        id:venue.id,
+        groupId:group.id,
+        address: venue.address,
+        city: venue.city,
+        state: venue.state,
+        lat: venue.lat,
+        lng: venue.lng,
+    }
+
+    res.json(result)
 
 })
 
