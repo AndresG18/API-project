@@ -116,7 +116,7 @@ router.post('/', requireAuth, validateGroup, async (req, res) => {
     const { name, about, type, private, city, state } = req.body;
     const organizerId = req.user.id;
 
-    const group = await Group.create({
+    const newGroup = await Group.create({
         organizerId: organizerId,
         name: name,
         about: about,
@@ -126,17 +126,7 @@ router.post('/', requireAuth, validateGroup, async (req, res) => {
         state: state
     });
 
-    res.status(201).json({
-        organizerId: organizerId,
-        name: name,
-        about: about,
-        type: type,
-        private: private,
-        city: city,
-        state: state,
-        createdAt:group.createdAt,
-        updatedAt:group.updatedAt
-    });
+    res.status(201).json(newGroup);
 });
 
 // POST group images
