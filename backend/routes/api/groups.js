@@ -390,7 +390,7 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res) => 
     }
 
     const event = await group.createEvent(req.body);
-    
+
     let result = {
         id: event.id,
         groupId: group.id,
@@ -419,7 +419,7 @@ router.get('/:groupId/members', async (req, res) => {
 
     if (!group) return res.status(404).json({ "message": "Group couldn't be found" });
 
-    const membership = await Membership.findAll({
+    let membership = await Membership.findAll({
         where: {
             groupId: group.id,
             userId: userId
@@ -428,8 +428,10 @@ router.get('/:groupId/members', async (req, res) => {
 
     let members = await group.getUsers({ joinTableAttributes: ['status'] });
 
-    if (membership.length < 1) members = members.filter(member => member.Membership.status !== 'pending');
-    else if ((group.organizerId !== userId) && membership[0].status !== 'co-host') members = members.filter(member => member.Membership.status !== 'pending');
+    if (membership.length > 0) membership = membership[0].toJSON();
+    else membership = membership = { status: null };
+
+    if (group.organizerId !== userId && membership.status !== ('co-host')) members = members.filter(member => member.Membership.status !== 'pending');
 
     res.json({ Members: members });
 });
