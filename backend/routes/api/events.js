@@ -296,6 +296,8 @@ router.get('/:eventId/attendees', async (req, res) => {
 
     if (!event) return res.status(404).json({ message: "Event couldn't be found" });
 
+    const group = await Group.findByPk(event.groupId);
+
     let attendees = await event.getUsers({ joinTableAttributes: ['status'] });
 
     const membership = await Membership.findAll({
@@ -305,9 +307,9 @@ router.get('/:eventId/attendees', async (req, res) => {
         }
     });
 
-    if (membership.length < 1) attendees = attendees.filter(attendee => attendee.status !== 'pending');
-    else if (membership[0].status !== ('co-host' && 'host')) attendees = attendees.filter(attendee => attendee.status !== 'pending');
-
+    if (membership.length < 1 && (membership[0].status !== 'co-host' && group.organizerId !== userId)) {
+        attendees = attendees.filter(attendee => attendee.Attendance.status !== 'pending');
+    }
     res.json({ Attendees: attendees });
 });
 
