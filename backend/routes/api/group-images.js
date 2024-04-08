@@ -13,7 +13,7 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
 
     const image = await GroupImage.findByPk(imageId);
 
-    if (!image) return res.status(404).json({ "message": "Event Image couldn't be found" });
+    if (!image) return res.status(404).json({ "message": "Group Image couldn't be found" });
 
     const group = await Group.findByPk(image.groupId);
 
