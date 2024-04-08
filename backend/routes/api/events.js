@@ -297,19 +297,21 @@ router.get('/:eventId/attendees', async (req, res) => {
     if (!event) return res.status(404).json({ message: "Event couldn't be found" });
 
     const group = await Group.findByPk(event.groupId);
-
+    
     let attendees = await event.getUsers({ joinTableAttributes: ['status'] });
 
-    const membership = await Membership.findAll({
+    let membership = await Membership.findAll({
         where: {
             groupId: event.groupId,
             userId: userId,
         }
     });
 
-    if (membership.length < 1 && (membership[0].status !== 'co-host' && group.organizerId !== userId)) {
-        attendees = attendees.filter(attendee => attendee.Attendance.status !== 'pending');
-    }
+    if (membership.length > 0) membership = membership[0].toJSON();
+    else membership = membership ={status:null};
+
+    if (group.organizerId !== userId && membership.status !== ('co-host') ) attendees = attendees.filter(attendee => attendee.Attendance.status !== 'pending');
+
     res.json({ Attendees: attendees });
 });
 
