@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
@@ -11,11 +11,15 @@ function Navigation({ isLoaded }) {
 
   const sessionLinks = sessionUser ?
     (
+      <div className='GroupFormLink'>
+        <Link to="/api/groups/new" >Start a new group</Link>
       <li>
         <ProfileButton user={sessionUser} />
       </li>
+      </div>
     ) : (
       <>
+      <div className='login'>
         <li>
           <OpenModalButton
             buttonText="Log In"
@@ -23,20 +27,22 @@ function Navigation({ isLoaded }) {
           />
           {/* <NavLink to="/login">Log In</NavLink> */}
         </li>
-        <li>
+        <li  className="signup">
           <OpenModalButton
             buttonText="Sign Up"
+         
             modalComponent={<SignupFormModal />}
           />
           {/* <NavLink to="/signup">Sign Up</NavLink> */}
         </li>
+        </div>
       </>
     );
 
   return (
-    <ul>
+    <ul className='ulHeader'>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink className="websiteName" to="/">GatherX</NavLink>
       </li>
       {isLoaded && sessionLinks}
     </ul>

@@ -1,7 +1,80 @@
+:root{
+--customBlack:#000000;
+--customBlue:#0b7b9e;
+background-color: #ffffff;
+}
+
 .profile-dropdown {
-  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px;
+  font-family: "itim";
+  color: var(--customBlack);
+ 
 }
 
 .hidden {
   display: none;
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  .GroupFormLink{
+    display: flex;
+    a {
+      text-decoration-line: none;
+      color:rgb(0, 0, 0);
+      font-family: 'Kaushan Script';
+      cursor: pointer;
+    }
+  }
+}
+
+.login,
+.login>*>* {
+  display: flex;
+  background-color: white;
+  border: none;
+  padding: 5px;
+  /* border-radius: 10px; */
+}
+
+.signup>* {
+  background-color: rgb(77, 76, 76);
+  color: white;
+}
+
+.websiteName {
+  text-decoration-line: none;
+  color: rgb(0, 0, 0);
+  padding: 4px 0px 0px 0px;
+  font-family: "Kaushan Script";
+  font-size: 25px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-left: 15px;
+  background-color: rgb(255, 255, 255);
+  button{
+    background-color: rgb(77, 76, 76);
+    color: #ffffff;
+    border: none;
+    height: 20px;
+    width:109px;
+    cursor: pointer;
+  }
+  .logout {
+    border: none;
+    background-color: rgb(77, 76, 76);
+    color: rgb(255, 255, 255);
+  }
+}
+.ulHeader{
+  height: 90px;
 }

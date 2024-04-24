@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
+import { csrfFetch } from '../../store/csrf';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -12,10 +13,26 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(false);
   const { closeModal } = useModal();
+  const newUser = {
+    email,
+    username,
+    firstName,
+    lastName,
+    password
+  }
+  useEffect(()=>{
+    let errors = false
+    if(!email) errors =true
+    if(!username) errors =true
+    if(!firstName)errors =true
+    if(!lastName) errors =true
+    if(!password || password.length < 6) errors =true
+    setErrors(errors)
+  },[email,username,firstName,lastName,password,confirmPassword])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors({});
@@ -32,7 +49,7 @@ function SignupFormModal() {
         .catch(async (res) => {
           const data = await res.json();
           if (data?.errors) {
-            setErrors(data.errors);
+            setErrors(data);
           }
         });
     }
@@ -40,6 +57,8 @@ function SignupFormModal() {
       confirmPassword: "Confirm Password field must be the same as the Password field"
     });
   };
+
+
 
   return (
     <>
@@ -105,7 +124,10 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        {errors.errors && Object.values(errors.errors).map(err =>
+        <p>{err}</p>
+          )}
+        <button disabled={errors == true} type="submit">Sign Up</button>
       </form>
     </>
   );
