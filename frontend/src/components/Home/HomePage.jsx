@@ -1,10 +1,8 @@
-import { NavLink, useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './HomePage.css'
 import { useSelector } from 'react-redux'
-import React from 'react'
 
 export default function HomePage() {
-  const navigate = useNavigate();
   const eventImage = "https://img-cdn.pixlr.com/image-generator/history/6626effc9ed75f6255bbcd0d/36f577f6-8226-4377-b9f2-285a97763231/medium.webp"
   const groupImage = "https://as1.ftcdn.net/v2/jpg/02/87/38/58/1000_F_287385828_ejLYE0aDPELQPOzEgEINOfr2M201c3E6.jpg"
   const sessionUser = useSelector(state=>state.session.user)

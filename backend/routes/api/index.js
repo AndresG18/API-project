@@ -33,3 +33,4 @@ router.use('/group-images',groupImagesRouter)
 router.use('/event-images',eventImagesRouter)
 
 module.exports = router;
+
