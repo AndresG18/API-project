@@ -1,71 +1,80 @@
-img{
+img {
     height: 250px;
 }
-.info{
+
+.info {
     display: flex;
     flex-direction: column;
-    div{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 50px;
-        *{
-            font-family: "Kaushan Script";
-            color:rgb(255, 255, 255);
-            background-color: black;
-            /* width: 380px; */
-        }
-        img{
-            padding: 15px;
-        }
-        button{
-            width: 200px ;
-            box-shadow: 3px 3px 3px 3px;
-            margin-top: 5px;
-        }
-    }
 }
-.introduction{
+
+.info div {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+.info div * {
+    font-family: "Kaushan Script";
+    color: rgb(255, 255, 255);
+    background-color: black;
+}
+
+.info div img {
+    padding: 15px;
+}
+
+.info div button {
+    width: 200px;
+    box-shadow: 3px 3px 3px 3px;
+    margin-top: 5px;
+}
+
+.introduction {
+    display: flex;
+    flex-direction: column;
     width: 620px;
     margin-left: 50px;
-    h1{
-        margin: 5px;
-    }
 }
-.StartGroup{
+
+.introduction h1 {
+    margin: 5px;
+}
+
+.StartGroup {
     display: flex;
     justify-content: center;
     height: 80px;
-    button{
-        width: 450px;
-        font-size: 40px;
-        background-color: rgb(59, 59, 59);
-        color: white;
-        border: none;
-        cursor: pointer;
-        a{
-            color: white;
-            font-family: "Kaushan Script";
-        }
-    }
 }
-.Join{
+
+.StartGroup button {
+    width: 450px;
+    font-size: 40px;
+    background-color: rgb(59, 59, 59);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.StartGroup button a {
+    color: white;
+    font-family: "Kaushan Script";
+}
+
+.Join {
     display: flex;
     justify-content: center;
     align-self: center;
     padding: 25px;
-    button{
-        width: 450px;
-        height: 40px;
-        color: white;
-        background-color: rgb(59, 59, 59);
-        cursor: pointer;
-        font-size: large;
-        font-family: "Kaushan Script";
-    }
+}
+
+.Join button {
+    width: 450px;
+    height: 40px;
+    color: white;
+    background-color: rgb(59, 59, 59);
+    cursor: pointer;
+    font-size: large;
+    font-family: "Kaushan Script";
 }

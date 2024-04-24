@@ -3,28 +3,37 @@ import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './LoginForm.css';
+// import { useNavigate } from 'react-router-dom';
 
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [err,setErr] = useState(false)
-   const { closeModal } = useModal();
+  const [err, setErr] = useState(false)
+  const { closeModal } = useModal();
 
 
-  useEffect(()=>{
-    if(credential.length < 4 || password.length < 6) setErr(true)
+  useEffect(() => {
+    if (credential.length < 4 || password.length < 6) setErr(true)
     else setErr(false)
-  },[credential,password])
-  const handleSubmit = async(e) => {
+  }, [credential, password])
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     setErrors({});
-   try{const response = await dispatch(sessionActions.login({credential,password}));}
-   catch(e){
-    const err = await e.json()
-    setErrors(err)
-   }
+    try {
+      e.preventDefault()
+      const response = await dispatch(sessionActions.login({ credential, password }));
+      if (response.ok){
+        closeModal();
+      }
+      
+    }
+    catch (e) {
+      const err = await e.json()
+      setErrors(err)
+    }
 
   };
 

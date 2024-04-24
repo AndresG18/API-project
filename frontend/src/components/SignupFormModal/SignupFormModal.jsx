@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
-import { csrfFetch } from '../../store/csrf';
+// import { csrfFetch } from '../../store/csrf';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -15,13 +15,7 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState(false);
   const { closeModal } = useModal();
-  const newUser = {
-    email,
-    username,
-    firstName,
-    lastName,
-    password
-  }
+
   useEffect(()=>{
     let errors = false
     if(!email) errors =true
@@ -125,7 +119,7 @@ function SignupFormModal() {
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         {errors.errors && Object.values(errors.errors).map(err =>
-        <p>{err}</p>
+        <p key={err}>{err}</p>
           )}
         <button disabled={errors == true} type="submit">Sign Up</button>
       </form>

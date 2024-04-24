@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, BrowserRouter, Routes, Route, useNavigate, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Outlet, BrowserRouter, Routes, Route} from 'react-router-dom';
 // import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
-import NavigationLink from './components/Navigation/Navigation-bonus';
+// import NavigationLink from './components/Navigation/Navigation-bonus';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
 import { Modal } from './context/Modal';
@@ -12,8 +12,8 @@ import HomePage from './components/Home/HomePage';
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const user = useSelector(state => state.session.user)
-  const navigate = useNavigate('/')
+  // const user = useSelector(state => state.session.user)
+  // const navigate = useNavigate('/')
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => {
       setIsLoaded(true)
@@ -22,7 +22,7 @@ function Layout() {
 
   return (
     <>
-    {/* <Modal modal ={Modal}/> */}
+    <Modal modal ={Modal}/>
     <Navigation isLoaded={isLoaded}/>
     <Outlet/>
 
