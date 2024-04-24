@@ -1,7 +1,7 @@
-:root {
-  --customBlack: #000000;
-  --customBlue: #0b7b9e;
-  background-color: #ffffff;
+:root{
+--customBlack:#000000;
+--customBlue:#0b7b9e;
+background-color: #ffffff;
 }
 
 .profile-dropdown {
@@ -10,6 +10,7 @@
   padding: 3px;
   font-family: "itim";
   color: var(--customBlack);
+ 
 }
 
 .hidden {
@@ -21,29 +22,34 @@ ul {
   display: flex;
   justify-content: space-between;
 }
-
-ul .GroupFormLink {
+.GroupFormLink{
   display: flex;
 }
-
-ul .GroupFormLink a {
+.GroupFormLink a{
   text-decoration-line: none;
-  color: rgb(0, 0, 0);
+  color:rgb(0, 0, 0);
   font-family: 'Kaushan Script';
   cursor: pointer;
 }
-
 .login,
-.login > * {
+.login>*>* {
   display: flex;
   background-color: white;
   border: none;
   padding: 5px;
+  /* cursor: pointer; */
+  margin-right: 5px;
+  /* border-radius: 10px; */
+}
+.login>*>* {
+  cursor: pointer;
 }
 
-.signup > * {
+.signup>* {
   background-color: rgb(77, 76, 76);
   color: white;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .websiteName {
@@ -62,22 +68,19 @@ ul .GroupFormLink a {
   padding-left: 15px;
   background-color: rgb(255, 255, 255);
 }
-
-.userInfo button {
-  background-color: rgb(77, 76, 76);
-  color: #ffffff;
-  border: none;
-  height: 20px;
-  width: 109px;
-  cursor: pointer;
-}
-
-.userInfo .logout {
+.logout {
   border: none;
   background-color: rgb(77, 76, 76);
   color: rgb(255, 255, 255);
+  cursor: pointer;
 }
-
-.ulHeader {
+.userInfo button{
+    background-color: rgb(77, 76, 76);
+    color: #ffffff;
+    border: none;
+    height: 20px;
+    width:109px;
+}
+.ulHeader{
   height: 90px;
 }
