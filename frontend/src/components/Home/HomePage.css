@@ -54,3 +54,18 @@ img{
         }
     }
 }
+.Join{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    padding: 25px;
+    button{
+        width: 450px;
+        height: 40px;
+        color: white;
+        background-color: rgb(59, 59, 59);
+        cursor: pointer;
+        font-size: large;
+        font-family: "Kaushan Script";
+    }
+}
