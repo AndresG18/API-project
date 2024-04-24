@@ -12,7 +12,7 @@ export default function HomePage() {
     <></>
   ) : (
     <div className='Join'>
-      <OpenModalButton
+      <OpenModalButton 
         buttonText="Join GatherX"
         modalComponent={<SignupFormModal />}
       />
@@ -36,7 +36,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className='StartGroup'>
-        <button disabled={!loggedIn}><Link to={'/start-group'} style={{ textDecorationLine: "none" }}>Start a group</Link></button>
+        <button disabled={loggedIn}><Link to={'/groups/new'} style={{ textDecorationLine: "none" }}>Start a group</Link></button>
       </div>
       {loggedIn}
     </div>

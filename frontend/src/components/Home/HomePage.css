@@ -71,10 +71,10 @@ img {
 
 .Join button {
     width: 450px;
-    height: 40px;
+    height: 60px;
     color: white;
-    background-color: rgb(59, 59, 59);
+    background-color: rgb(0, 0, 0);
     cursor: pointer;
-    font-size: large;
+    font-size: x-large;
     font-family: "Kaushan Script";
 }
