@@ -3,9 +3,9 @@ import * as GroupAction from '../../store/Groups'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import GroupDetails from '../GroupDetails';
-import { getEventsThunk } from '../../store/events';
+// import { getEventsThunk } from '../../store/events';
 import { NavLink } from 'react-router-dom';
-import { getGroupThunk } from '../../store/Group';
+// import { getGroupThunk } from '../../store/Group';
 export default function GroupList() {
     const dispatch = useDispatch();
     useEffect(() => {
