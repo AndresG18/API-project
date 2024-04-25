@@ -3,20 +3,18 @@ import * as GroupAction from '../../store/Groups'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import GroupDetails from '../GroupDetails';
-// import { getEventsThunk } from '../../store/events';
+import { getEventsThunk } from '../../store/events';
 import { NavLink } from 'react-router-dom';
 // import { getGroupThunk } from '../../store/Group';
 export default function GroupList() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(GroupAction.getGroupsThunk())
-    }, [dispatch])
+
+
     const events = useSelector(state => state.events)
     const groups = useSelector(state => state.groups)
     const groupsArr = Object.values(groups)
     return (
         <div className='groups'>
-            {<GroupOrEvent/>}
+            {<GroupOrEvent />}
             <div className='group'>
                 {groupsArr.map(group =>
                     <GroupDetails key={group.id} group={group} event={events} />)}
@@ -25,15 +23,19 @@ export default function GroupList() {
     )
 }
 export function GroupOrEvent() {
-    
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(GroupAction.getGroupsThunk())
+        dispatch(getEventsThunk())
+    }, [dispatch])
     return (
         <div className='group-event-links'>
-        <div>
-            <h1><NavLink to={'/events'}>GatherX Events</NavLink></h1>
+            <div>
+                <h1><NavLink to={'/events'}>GatherX Events</NavLink></h1>
+            </div>
+            <div>
+                <h1><NavLink to={'/groups'}>GatherX Groups</NavLink></h1>
+            </div>
         </div>
-        <div>
-            <h1><NavLink to={'/groups'}>GatherX Groups</NavLink></h1>
-        </div>
-    </div>
     )
 }

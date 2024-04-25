@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { GroupOrEvent } from "../GroupList/GroupList"
-import EventDetails from "../EventDetails/EventDetails"
+import EventDetails from '../EventDetails/index'
 import './EventList.css'
 function EventList() {
     const events = useSelector(state => state.events)

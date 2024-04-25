@@ -4,11 +4,13 @@
     margin-left: 200px;
     margin-bottom: 40px;
 }
+.group-div ul{
+    font-size: 23px;
+}
 .group-Info ul{
     display: flex;
     flex-direction: column;
     margin: 5px;
-    font-size: 20px;
     align-self: flex-start;
 }
 .group-Info ul li{

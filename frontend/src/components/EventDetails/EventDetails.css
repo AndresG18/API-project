@@ -1,7 +1,11 @@
 .events{
     display: flex;
+    flex-direction: row;
+    padding: 10px;
+    width: 750px;
+    display: flex;
     border-bottom: 2px black solid;
-    margin: 10px;
+    margin: 5px 0px 5px 0px;
     cursor: pointer;
 }
 .events:hover{
@@ -9,11 +13,14 @@
 }
 .events img{
     height: 240px;
-    width: 300px;
-    margin-bottom: 25px;
+    width: 250px;
+    margin-top: 20px;
 }
 .eventText{
     flex-direction: column;
     justify-content: space-evenly;
-    width: 450px;
+    width: 500px;
+    height: 230px;
+    padding: 10px;
+    margin-top: 10px;
 }

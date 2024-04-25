@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 // import { getGroupsThunk } from '../../store/Groups';
 // import { useEffect } from 'react';
 import { getEventsThunk } from '../../store/events';
+import EventDetails from '../EventDetails';
 
 
 function GroupShow() {
@@ -21,7 +22,7 @@ function GroupShow() {
     useEffect(() => {
         dispatch(getEventsThunk())
     }, [dispatch])
-    // console.log(eventsarr)
+
     const handleClick = () =>{
         window.alert("Feature Coming Soon")
     }
@@ -70,6 +71,10 @@ function GroupShow() {
                     <h2>What we are about:</h2>
                     <p>{currGroup.about}</p>
                     {button}
+                    <h2>Events </h2>
+                    {eventsarr.map(event=>(
+                        <EventDetails key={event.id} event={event}/>
+                    ))}
                 </div>
             </div>
         </>

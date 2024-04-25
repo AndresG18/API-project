@@ -10,7 +10,7 @@ import { Modal } from './context/Modal';
 import HomePage from './components/Home/HomePage';
 import GroupForm from './components/GroupForm/GroupForm.jsx';
 import GroupList from './components/GroupList/GroupList';
-import EventList from './components/EventList';
+import EventList from './components/EventList/index'
 import GroupShow from './components/GroupShow';
 function Layout() {
   const dispatch = useDispatch();
