@@ -8,15 +8,15 @@ const { EventImage } = require('../models')
 const images = [
   {
     eventId:1,
-    url:'image6.url',
+    url:'https://lamvascular.com/wp-content/uploads/2017/02/GettyImages-515311245-550x462.jpg',
     preview:true,
   },{
     eventId:2,
-    url:'image7.url',
+    url:'https://img.freepik.com/free-photo/top-view-cosmetic-treatment_23-2148574964.jpg?size=626&ext=jpg&ga=GA1.1.553209589.1713916800&semt=ais',
     preview:true,
   },{
     eventId:3,
-    url:'image8.url',
+    url:'https://cdna.artstation.com/p/assets/images/images/064/920/110/large/lauan-s-pereira-finishedart.jpg?1689078696',
     preview:true
   },
 
