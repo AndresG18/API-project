@@ -10,7 +10,6 @@ background-color: #ffffff;
   padding: 3px;
   font-family: "itim";
   color: var(--customBlack);
- 
 }
 
 .hidden {
@@ -80,6 +79,7 @@ ul {
     border: none;
     height: 20px;
     width:109px;
+    cursor: pointer;
 }
 .ulHeader{
   height: 90px;

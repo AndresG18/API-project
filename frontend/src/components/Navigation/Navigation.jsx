@@ -12,7 +12,7 @@ function Navigation({ isLoaded }) {
   const sessionLinks = sessionUser ?
     (
       <div className='GroupFormLink'>
-        <Link to="/api/groups/new" >Start a new group</Link>
+        <Link to="/groups/new" >Start a new group</Link>
       <li>
         <ProfileButton user={sessionUser} />
       </li>

@@ -1,0 +1,28 @@
+.groupDiv{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    width: 750px;
+    display: flex;
+    border-bottom: 2px black solid;
+    margin: 5px 0px 5px 0px;
+    cursor: pointer;
+}
+.groupDiv:hover{
+    box-shadow: 0px 1px 3px 1px black;
+}
+.groupText{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: fit-content;
+    background-color: rgb(59, 59,59);
+    color: white;
+    width: 500px;
+    height: 230px;
+    padding: 10px;
+    margin-top: 10px;
+}
+.groupText p {
+    margin: 0px;
+}

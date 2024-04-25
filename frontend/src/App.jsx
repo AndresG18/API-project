@@ -8,12 +8,14 @@ import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
 import { Modal } from './context/Modal';
 import HomePage from './components/Home/HomePage';
-
+import GroupForm from './components/GroupForm/GroupForm.jsx';
+import GroupList from './components/GroupList/GroupList';
+import EventList from './components/EventList';
+import GroupShow from './components/GroupShow';
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  // const user = useSelector(state => state.session.user)
-  // const navigate = useNavigate('/')
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => {
       setIsLoaded(true)
@@ -30,7 +32,6 @@ function Layout() {
   );
 }
 
-
 function App() {
   return (
     <>
@@ -38,11 +39,11 @@ function App() {
         <Layout />
         <Routes>
           <Route path='/' element={<HomePage/>} />
-          <Route path='/groups' element={null} />
-          <Route path='/groups/:groupId' element={null} />
-          <Route path='/groups/new' />
+          <Route path='/groups' element={<GroupList/>} />
+          <Route path='/groups/:groupId' element={<GroupShow/>} />
+          <Route path='/groups/new' element={<GroupForm/>}/>
           <Route path='/groups/:groupId/edit' element={null} />
-          <Route path='/events'element={null} />
+          <Route path='/events'element={<EventList/>} />
           <Route path='/groups/:groupId/events/new' element={null} />
           <Route path='/events:eventId' element={null} />
           <Route path='/groups/:groupId/events/:eventId/edit' element={null} />

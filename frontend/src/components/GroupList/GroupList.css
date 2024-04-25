@@ -1,0 +1,47 @@
+
+div h1{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+div img{
+    width: fit-content;
+    margin: 10px;
+}
+.groups {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+}
+.group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+}
+.group-event-links{
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+}
+.group-event-links a{
+    text-decoration: none;
+    color: rgb(59, 59, 59);
+    padding: 8px;
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.group-event-links a:hover{
+    box-shadow: 0px 1px 3px 1px black;
+}
+ .group-event-links .active{
+    /* text-decoration: underline; */
+    border: 2px rgb(0, 0, 0) solid;
+    border-radius:10px;
+    background-color: rgb(59, 59, 59);
+    color:white
+}
