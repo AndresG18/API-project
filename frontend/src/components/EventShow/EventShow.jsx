@@ -25,7 +25,7 @@ function EventShow() {
     const user = useSelector(state => state.session.user)
     const group = useSelector(state => state.currGroup)
     const event = useSelector(state => state.currEvent.event)
-    const groupId = event?.groupId || null
+    const groupId = event?.groupId
     const image = event?.EventImages?.[0]?.url ?? null
     const start = event?.startDate?.substring(0, 10)
     const time = event?.startDate?.substring(11, 16)
@@ -55,8 +55,8 @@ function EventShow() {
     const eventdetails = event?.groupId ? group.Organizer && (<div className='event-info'>
         <img src={image} alt="" />
         <div className='event-text'>
-            <h2 style={{ margin: "0px",fontSize :"35px" }} >{event.name}</h2>
-            <p style={{ margin: "8px" ,fontSize:"20px"}} className='organizerName'> - Hosted by {group.Organizer.firstName} {group.Organizer.lastName}</p>
+            <h2 style={{ margin: "0px", fontSize: "35px" }} >{event?.name}</h2>
+            <p style={{ margin: "8px", fontSize: "20px" }} className='organizerName'> - Hosted by {group.Organizer?.firstName} {group.Organizer?.lastName}</p>
             <div className='time'>
                 <FaClock />
                 <div>
@@ -65,10 +65,10 @@ function EventShow() {
                 </div>
             </div>
             <div className='price'>
-                {event.price > 0 ? (<><TbZoomMoney /><p> {event.price}$</p></>) : (<><TbZoomMoney /> FREE</>)}
+                {event?.price > 0 ? (<><TbZoomMoney /><p> {event?.price}$</p></>) : (<><TbZoomMoney /> FREE</>)}
             </div>
             <div className='type'>
-                <><BiMapPin /> <p>{event.type}</p></>
+                <><BiMapPin /> <p>{event?.type}</p></>
             </div>
         </div>
     </div>) : (<h1>...Loading</h1>)
@@ -78,8 +78,8 @@ function EventShow() {
             {eventdetails}
             {eventCrud}
             <div>
-                <p style={{fontSize:"30px",borderBottom:"2px solid rgb(59,59,59",width:"765px"}}>Description</p>
-                {<p style={{fontSize:"21px"}}>{event.description} </p>}
+                <p style={{ fontSize: "30px", borderBottom: "2px solid rgb(59,59,59", width: "765px" }}>Description</p>
+                {<p style={{ fontSize: "21px" }}>{event?.description} </p>}
             </div>
             {<div className='groupBox'>
                 <p className='group-title'>Group</p>
