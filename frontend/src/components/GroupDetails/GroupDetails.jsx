@@ -8,7 +8,7 @@ import { getEventsThunk } from '../../store/events'
 function GroupDetails({group}) {
     const navigate = useNavigate()
     const event = useSelector(state=> state.events)
-    const events = Object.values(event).filter(e => e.groupId === group.id) 
+    const events = Object.values(event).filter(e => e?.groupId === group?.id) 
     const dispatch = useDispatch();
 
     useEffect(()=>{

@@ -47,11 +47,11 @@ function EventShow() {
         dispatch(getGroupsThunk())
     }, [dispatch, groupId, eventId])
 
-    const eventCrud = user && user.id == group.organizerId ? (
+    const eventCrud = user?.id == group?.organizerId ? (
         <div className='eventUD'>
             <button>Update</button>
             <button>Delete</button>
-        </div>) : (<></>)
+        </div>) : null
     const eventdetails = event?.groupId ? group.Organizer && (<div className='event-info'>
         <img src={image} alt="" />
         <div className='event-text'>

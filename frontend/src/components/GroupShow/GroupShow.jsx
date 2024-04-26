@@ -21,7 +21,7 @@ function GroupShow() {
     const currGroup = useSelector(state => state.currGroup)
     const image = currGroup?.GroupImages?.[0]?.url ?? null
     const events = useSelector(state => state.events)
-    const eventsarr = Object.values(events).filter(event => event.groupId === currGroup.id)
+    const eventsarr = Object.values(events).filter(event => event?.groupId === currGroup?.id)
 
     useEffect(() => {
         if(Delete) {
@@ -45,12 +45,12 @@ function GroupShow() {
         e.preventDefault();
         navigate(`/groups/${currGroup.id}/edit`)
     }
-    const button = user && user.id !== currGroup.organizerId ? (
+    const button = user && user.id !== currGroup?.organizerId ? (
         <button onClick={handleClick}>Join this Group</button>
     ) : (
         null
     );
-    const crudButtons = user && user.id == currGroup.organizerId ? (
+    const crudButtons =  user?.id == currGroup?.organizerId ? (
         <div className="GroupCrud">
             <button onClick={handleEvent}>
                 Create an event
