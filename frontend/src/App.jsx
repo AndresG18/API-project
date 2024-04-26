@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet, BrowserRouter, Routes, Route} from 'react-router-dom';
 // import LoginFormPage from './components/LoginFormPage';
-import SignupFormPage from './components/SignupFormPage';
+// import SignupFormPage from './components/SignupFormPage';
 // import NavigationLink from './components/Navigation/Navigation-bonus';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
@@ -13,6 +13,8 @@ import GroupList from './components/GroupList/GroupList';
 import EventList from './components/EventList/index'
 import GroupShow from './components/GroupShow';
 import GroupUpdate from './components/GroupUpdate';
+import EventForm from './components/EventForm/EventForm';
+import EventShow from './components/EventShow';
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -25,7 +27,7 @@ function Layout() {
 
   return (
     <>
-    <Modal modal ={Modal}/>
+    <Modal />
     <Navigation isLoaded={isLoaded}/>
     <Outlet/>
 
@@ -41,14 +43,14 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage/>} />
           <Route path='/groups' element={<GroupList/>} />
-          <Route path='/groups/:groupId' element={<GroupShow/>} />
           <Route path='/groups/new' element={<GroupForm/>}/>
+          <Route path='/groups/:groupId' element={<GroupShow/>} />
           <Route path='/groups/:groupId/edit' element={<GroupUpdate/>} />
           <Route path='/events'element={<EventList/>} />
-          <Route path='/groups/:groupId/events/new' element={null} />
-          <Route path='/events:eventId' element={null} />
+          <Route path='/events/:eventId' element={<EventShow/>} />
+          <Route path='/groups/:groupId/events/new' element={<EventForm/>} />
           <Route path='/groups/:groupId/events/:eventId/edit' element={null} />
-          <Route path='/signup' element={<SignupFormPage />} />
+          <Route path='*' element={<h1>Page not Found</h1>} />
         </Routes>
       </BrowserRouter>
     </>

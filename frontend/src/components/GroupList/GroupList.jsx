@@ -7,7 +7,6 @@ import { getEventsThunk } from '../../store/events';
 import { NavLink } from 'react-router-dom';
 
 export default function GroupList() {
-    const events = useSelector(state => state.events)
     const groups = useSelector(state => state.groups)
     const groupsArr = Object.values(groups)
     return (
@@ -15,7 +14,7 @@ export default function GroupList() {
             {<GroupOrEvent />}
             <div className='group'>
                 {groupsArr.map(group =>
-                    <GroupDetails key={group.id} group={group} event={events} />)}
+                    <GroupDetails key={group.id} group={group}  />)}
             </div>
         </div>
     )

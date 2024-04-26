@@ -84,7 +84,7 @@ function GroupShow() {
                     <EventDetails key={event.id} event={event} />
                 ))}
             </div>
-        </div></>) : (null)
+        </div></>) : (<h1>...Loading</h1>)
     return (
         <>
             {groupdetails}

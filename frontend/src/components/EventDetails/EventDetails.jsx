@@ -8,7 +8,7 @@ function EventDetails({event}){
     const navigate = useNavigate();
     const handleClick= (e)=>{
         e.preventDefault();
-        navigate(`events/${event.id}`)
+        navigate(`/events/${event.id}`)
     }
 
   return (

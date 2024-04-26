@@ -4,11 +4,13 @@ import sessionReducer from './session';
 import {  groupReducer } from './Groups';
 import { groupIdReducer } from './Group';
 import { eventReducer } from './events';
+import eventIdReducer from './Event';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  groups: groupReducer,
   currGroup:groupIdReducer,
+  currEvent:eventIdReducer,
+  groups: groupReducer,
   events:eventReducer
 });
 

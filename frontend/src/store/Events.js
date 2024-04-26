@@ -22,7 +22,7 @@ export const eventReducer = (state = initialState, action) => {
         case GET_EVENTS:
            { const obj = {}
              action.events.forEach(event => obj[event.id] = event)
-            return obj;}
+            return obj}
         default:
             return state;
     }
