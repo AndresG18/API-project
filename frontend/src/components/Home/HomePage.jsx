@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import { useSelector } from 'react-redux';
 import SignupFormModal from '../SignupFormModal';
@@ -23,7 +23,14 @@ export default function HomePage() {
     e.preventDefault();
     navigate('/groups/new')
   }
-
+  const handleEvent=(e)=>{
+    e.preventDefault();
+    navigate('/events')
+  }
+  const handleGroup = (e)=>{
+    e.preventDefault();
+    navigate('/groups')
+  }
   return (
     <div>
       <div className='introduction'>
@@ -33,11 +40,11 @@ export default function HomePage() {
       <div className='info'>
         <div>
           <img src={groupImage} alt="Group" />
-          <button><Link to={'/groups'} style={{ textDecorationLine: "none" }}>See all Groups</Link></button>
+          <button onClick={handleGroup}> See all </button>
         </div>
         <div>
           <img src={eventImage} alt="Event" />
-          <button><Link to={'/events'} style={{ textDecorationLine: "none" }}>Find an Event</Link></button>
+          <button onClick={handleEvent}>Find an Event</button>
         </div>
       </div>
       <div className='StartGroup'>

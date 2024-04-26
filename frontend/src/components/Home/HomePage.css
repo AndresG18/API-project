@@ -78,3 +78,6 @@ img {
     font-size: x-large;
     font-family: "Kaushan Script";
 }
+button{
+    cursor: pointer;
+}
