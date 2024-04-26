@@ -45,3 +45,7 @@ div img{
     background-color: rgb(59, 59, 59);
     color:white
 }
+.groupText p {
+    width: 480px;
+    word-wrap: break-word;
+}

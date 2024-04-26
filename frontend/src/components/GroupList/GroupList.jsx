@@ -5,10 +5,8 @@ import { useEffect } from 'react';
 import GroupDetails from '../GroupDetails';
 import { getEventsThunk } from '../../store/events';
 import { NavLink } from 'react-router-dom';
-// import { getGroupThunk } from '../../store/Group';
+
 export default function GroupList() {
-
-
     const events = useSelector(state => state.events)
     const groups = useSelector(state => state.groups)
     const groupsArr = Object.values(groups)

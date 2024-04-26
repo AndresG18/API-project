@@ -12,6 +12,7 @@ import GroupForm from './components/GroupForm/GroupForm.jsx';
 import GroupList from './components/GroupList/GroupList';
 import EventList from './components/EventList/index'
 import GroupShow from './components/GroupShow';
+import GroupUpdate from './components/GroupUpdate';
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -42,7 +43,7 @@ function App() {
           <Route path='/groups' element={<GroupList/>} />
           <Route path='/groups/:groupId' element={<GroupShow/>} />
           <Route path='/groups/new' element={<GroupForm/>}/>
-          <Route path='/groups/:groupId/edit' element={null} />
+          <Route path='/groups/:groupId/edit' element={<GroupUpdate/>} />
           <Route path='/events'element={<EventList/>} />
           <Route path='/groups/:groupId/events/new' element={null} />
           <Route path='/events:eventId' element={null} />
