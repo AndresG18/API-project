@@ -30,8 +30,8 @@ export const getEventIdThunk = (eventId) => async (dispatch) => {
     return data
 };
 
-export const addEventThunk = (event) => async (dispatch) => {
-    const response = await csrfFetch('/api/events', {
+export const addEventThunk = (groupId,event) => async (dispatch) => {
+    const response = await csrfFetch(`/api/groups/${groupId}/events`, {
         method: 'POST',
         body: JSON.stringify(event)
     });

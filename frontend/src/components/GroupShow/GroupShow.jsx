@@ -39,7 +39,7 @@ function GroupShow() {
     }
     const handleEvent = (e) => {
         e.preventDefault();
-        navigate('/events/new')
+        navigate(`/groups/${currGroup.id}/events/new`)
     }
     const handleUpdate = (e) => {
         e.preventDefault();

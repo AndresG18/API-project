@@ -1,0 +1,48 @@
+.rdtTime >*, .rdtCounter {
+    display: flex;
+    cursor: pointer;
+    align-items: start;
+    flex-direction: column;
+    margin-top: 12px;
+
+}
+table > * > *> *>*{
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+
+}
+.rdtDay{
+    cursor: pointer;
+}
+
+.rdtSwitch ,td {
+    cursor: pointer;
+    border: 1px solid black;
+}
+.err{
+    color: red;
+}
+.rdtCounterSeparator {
+    display: flex;
+    align-self: center;
+    margin-top: 10px;
+}
+table{
+    display: flex;
+    border: 3px solid rgb(61, 61, 61);
+    padding: 5px;
+    width: min-content;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+.rdtSwitch{
+    border: 1px solid black;
+}
+.rdtDays {
+    margin-top: 12px ;
+}

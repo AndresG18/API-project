@@ -12,6 +12,9 @@ import { FaClock } from "react-icons/fa";
 import { BiMapPin } from "react-icons/bi";
 import GroupDetails from '../GroupDetails';
 import { getGroupsThunk } from '../../store/Groups';
+import OpenModalButton from '../OpenModalButton';
+import EventDelete from '../EventDelete';
+import { useState } from 'react';
 useNavigate
 function EventShow() {
     const { eventId } = useParams();
@@ -33,12 +36,12 @@ function EventShow() {
     const endTime = event?.endDate?.substring(11, 16)
     const events = useSelector(state => state.events);
     const groupProp = useSelector(state => state.groups[groupId])
-
-    // useEffect(() => {
-    //     if (Delete) {
-    //         navigate('/groups', { replace: true })
-    //     }
-    // }, [Delete, navigate])
+    const [removed,setRemoved] = useState(false)
+    useEffect(() => {
+        if (removed) {
+            navigate('/events', { replace: true })
+        }
+    }, [removed, navigate])
     useEffect(() => {
         dispatch(getEventIdThunk(eventId))
         if (groupId) {
@@ -50,7 +53,7 @@ function EventShow() {
     const eventCrud = user?.id == group?.organizerId ? (
         <div className='eventUD'>
             <button>Update</button>
-            <button>Delete</button>
+            <OpenModalButton buttonText={"Delete"}  modalComponent={<EventDelete props={{setRemoved,event}}/>} ></OpenModalButton>
         </div>) : null
     const eventdetails = event?.groupId ? group.Organizer && (<div className='event-info'>
         <img src={image} alt="" />

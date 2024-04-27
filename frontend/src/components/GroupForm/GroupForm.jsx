@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createGroupThunk, editGroupThunk } from '../../store/Group';
 import { useNavigate } from 'react-router-dom';
 
-function GroupForm({ group }) {
+function GroupForm({group}) {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [location, setLocation] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');

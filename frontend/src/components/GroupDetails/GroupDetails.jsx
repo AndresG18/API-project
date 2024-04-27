@@ -12,8 +12,8 @@ function GroupDetails({group}) {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        dispatch(getEventsThunk())
-    },[dispatch])
+       if(Object.values(event) <= 0) dispatch(getEventsThunk())
+    },[event,dispatch])
     const handleClick = async (e) =>{
         e.preventDefault();
         await dispatch(getGroupThunk(group.id))
