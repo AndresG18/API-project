@@ -77,7 +77,7 @@ function EventShow() {
     </div>) : (<h1>...Loading</h1>)
     return (
         <div>
-            <button onClick={eventsClick}>Events</button>
+            <button style={{backgroundColor:"black", color:"white"}} onClick={eventsClick}>Events</button>
             {eventdetails}
             {eventCrud}
             <div>
