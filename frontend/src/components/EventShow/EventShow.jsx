@@ -39,9 +39,9 @@ function EventShow() {
     const [removed,setRemoved] = useState(false)
     useEffect(() => {
         if (removed) {
-            navigate('/events', { replace: true })
+            navigate(`/groups/${group.id}`, { replace: true })
         }
-    }, [removed, navigate])
+    }, [removed, navigate,group.id])
     useEffect(() => {
         dispatch(getEventIdThunk(eventId))
         if (groupId) {
@@ -52,7 +52,7 @@ function EventShow() {
 
     const eventCrud = user?.id == group?.organizerId ? (
         <div className='eventUD'>
-            <button>Update</button>
+            <button onClick={()=>window.alert("Feature Coming Soon")} >Update</button>
             <OpenModalButton buttonText={"Delete"}  modalComponent={<EventDelete props={{setRemoved,event}}/>} ></OpenModalButton>
         </div>) : null
     const eventdetails = event?.groupId ? group.Organizer && (<div className='event-info'>

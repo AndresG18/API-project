@@ -12,20 +12,21 @@ function GroupForm({group}) {
   const [location, setLocation] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [isPrivate, setIsPrivate] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(null);
   const [type, setType] = useState('');
   const [imgUrl, setImgUrl] = useState('');
-
   const [errors, setErrors] = useState({});
   const [formError, setFormError] = useState(false);
-
+  const [valErr,setValErr] = useState({})
+  const errArr = Object.values(valErr)
+  console.log(errArr)
   useEffect(() => {
     if (!user) navigate('/');
     if (group?.organizerId && user.id !== group.organizerId) navigate('/');
     setLocation(group?.city ? `${group.city},${group.state}` : '');
     setName(group?.name || '');
     setDescription(group?.about || '');
-    setIsPrivate(group?.private === true); 
+   if(group?.private !== null) setIsPrivate(group?.private); 
     setType(group?.type || '');
     setImgUrl(group?.GroupImages?.length ? group.GroupImages[0].url : '');
   }, [group, navigate, user]);
@@ -65,9 +66,6 @@ function GroupForm({group}) {
       case 'description':
         setDescription(value);
         break;
-      case 'isPrivate':
-        setIsPrivate(value === 'true'); // Convert string to boolean
-        break;
       case 'type':
         setType(value);
         break;
@@ -92,18 +90,17 @@ function GroupForm({group}) {
     try {
       const data = group ? await dispatch(editGroupThunk(reqObj, group.id)) : await dispatch(createGroupThunk(reqObj));
       if (data.errors) {
-        setFormError(true);
-        setErrors({
-          location: `${data.errors.city}, ${data.errors.state}`,
-          name: data.errors.name,
-          description: data.errors.about,
-        });
+        // setFormError(true);
+        // setErrors(data.errors);
       } else {
         if (imgUrl.trim()) await createGroupImage(group ? group.id : data.id, imgObj);
         navigate(`/groups/${group ? group.id : data.id}`);
       }
     } catch (error) {
-      console.error('Error:', error);
+     const errors =await error.json()
+     setFormError(true);
+     setValErr(errors.errors)
+      console.error('Error:', errors);
     }
   };
 
@@ -121,7 +118,7 @@ function GroupForm({group}) {
             value={location}
             onChange={handleChange}
           />
-          {formError && errors.location && <div className='error-message'>{errors.location}</div>}
+          {formError  && <div className='error-message'>{errors.location}</div>}
         </div>
         <div className='form-section'>
           <h3>What will your group&apos;s name be?</h3>
@@ -158,7 +155,7 @@ function GroupForm({group}) {
               value={type}
               onChange={handleChange}
             >
-              <option value=''>Select one</option>
+              <option value={null}>Select one</option>
               <option value='In person'>In person</option>
               <option value='Online'>Online</option>
             </select>
@@ -168,12 +165,12 @@ function GroupForm({group}) {
             <p>Please select the visibility of your group:</p>
             <select
               name='isPrivate'
-              value={String(isPrivate)}
-              onChange={handleChange}
+              value={isPrivate}
+              onChange={(e)=>{setIsPrivate(e.target.value)}}
             >
-              <option value=''>Select one</option>
-              <option value='true'>Private</option>
-              <option value='false'>Public</option>
+              <option   value={null}>Select one</option>
+              <option value={true}>Private</option>
+              <option value={false}>Public</option>
             </select>
             {formError && errors.isPrivate && <div className='error-message'>{errors.isPrivate}</div>}
           </div>
@@ -188,6 +185,10 @@ function GroupForm({group}) {
             />
             {formError && errors.imgUrl && <div className='error-message'>{errors.imgUrl}</div>}
           </div>
+          {formError && <p> All Errors :</p>}
+           {formError  && errArr.map(e=>
+            <p key={e} style={{color:'red'}}>{e}</p>
+            )}
           <button type='submit'>{!group ? 'Create group' : 'Update group'}</button>
         </div>
       </form>

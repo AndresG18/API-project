@@ -5,10 +5,18 @@ import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
+import { csrfFetch } from '../../store/csrf';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-
+  const handleClick = async (e) =>{
+    e.preventDefault();
+    await csrfFetch('/api/session',{
+      method : "POST",
+      body: JSON.stringify({credential:"Demo-lition",password:'password'})
+    });
+window.location.replace('/')
+  }
   const sessionLinks = sessionUser ?
     (
       <div className='GroupFormLink'>
@@ -20,6 +28,11 @@ function Navigation({ isLoaded }) {
     ) : (
       <>
       <div className='login'>
+        <li>
+          <button onClick={handleClick} className='logout'>
+            Login as demo user
+          </button>
+        </li>
         <li>
           <OpenModalButton
             buttonText="Log In"

@@ -45,9 +45,12 @@ margin :5px
 }
 .eventUD button{
     margin: 20px;
-    height: 35px;
+    height: 38px;
     width: 100px;
     cursor: pointer;
+    background-color: rgb(59, 59, 59);
+    color: white;
+    font-family: "Kaushan Script";
 }
 .groupBox{
     display: flex;

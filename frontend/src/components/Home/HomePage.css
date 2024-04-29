@@ -1,7 +1,9 @@
 img {
     height: 250px;
 }
-
+div h1{
+    font-family: "Kaushan Script";
+}
 .info {
     display: flex;
     flex-direction: column;
@@ -40,6 +42,11 @@ img {
 
 .introduction h1 {
     margin: 5px;
+    margin-left: 0px;
+    margin-right: 20px;
+   
+        font-family: "Kaushan Script";
+   
 }
 
 .StartGroup {
@@ -81,3 +88,9 @@ img {
 button{
     cursor: pointer;
 }
+/* .homepage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */

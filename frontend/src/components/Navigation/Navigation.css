@@ -29,6 +29,7 @@ ul {
   color:rgb(0, 0, 0);
   font-family: 'Kaushan Script';
   cursor: pointer;
+  font-size:20px ;
 }
 .login,
 .login>*>* {
@@ -56,7 +57,7 @@ ul {
   color: rgb(0, 0, 0);
   padding: 4px 0px 0px 0px;
   font-family: "Kaushan Script";
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .userInfo {
@@ -64,8 +65,9 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-left: 15px;
+  padding-left: 20px;
   background-color: rgb(255, 255, 255);
+
 }
 .logout {
   border: none;
@@ -74,13 +76,21 @@ ul {
   cursor: pointer;
 }
 .userInfo button{
-    background-color: rgb(77, 76, 76);
+    background-color: rgb(59, 59, 59);
     color: #ffffff;
     border: none;
-    height: 20px;
-    width:109px;
+    height: 25px;
+    width:110px;
     cursor: pointer;
+    margin-top: 3px;
 }
 .ulHeader{
-  height: 90px;
+  height: 95px;
+}
+button{
+  font-size: 15px;
+}
+li .profLink{
+text-decoration-line: underline;
+cursor: pointer;
 }

@@ -9,6 +9,7 @@ function EventList() {
         <>
             <div className="eventList" >
                 <GroupOrEvent />
+                <h2>Events in GatherX</h2>
                 {eventArr.map(event => (
                     <EventDetails key={event.id} event={event} />
                 ))}

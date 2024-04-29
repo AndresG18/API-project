@@ -12,7 +12,9 @@ export default function GroupList() {
     return (
         <div className='groups'>
             {<GroupOrEvent />}
+            
             <div className='group'>
+            <h2>Groups in GatherX</h2>
                 {groupsArr.map(group =>
                     <GroupDetails key={group.id} group={group}  />)}
             </div>
@@ -28,10 +30,10 @@ export function GroupOrEvent() {
     return (
         <div className='group-event-links'>
             <div>
-                <h1><NavLink to={'/events'}>GatherX Events</NavLink></h1>
+                <h1><NavLink to={'/events'}>Events</NavLink></h1>
             </div>
             <div>
-                <h1><NavLink to={'/groups'}>GatherX Groups</NavLink></h1>
+                <h1><NavLink to={'/groups'}>Groups</NavLink></h1>
             </div>
         </div>
     )

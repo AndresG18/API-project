@@ -31,13 +31,26 @@ export default function HomePage() {
     e.preventDefault();
     navigate('/groups')
   }
+  const startButton = sessionUser ? (
+    <div className='StartGroup'>
+    <button  onClick={handleClick} style={{fontFamily:"Kaushan Script",cursor:"pointer"}} >Start a group</button>
+  </div>
+  ) : (
+    <div className='StartGroup'>
+    <button disabled={true}  style={{fontFamily:"Kaushan Script",color:"lightGray",cursor:"none"}} >Start a group</button>
+  </div>
+  )
   return (
-    <div>
+    <div className='homepage'>
       <div className='introduction'>
         <h1>Discover new friends who share your interests </h1>
         <p>-Whether you&rsquo;re into hiking, reading, networking, or skill-sharing, there&rsquo;s a vibrant community waiting for you. With events taking place daily, there&rsquo;s always something exciting to join. Sign up now and start exploring the endless possibilities of connecting with like-minded individuals.</p>
       </div>
       <div className='info'>
+        <div>
+          <h1 style={{color:"black",backgroundColor:"white",margin:"0px"}}>How GatherX works</h1>
+          <p style={{color:"black",backgroundColor:"white",}}>Make friends and have fun!</p>
+        </div>
         <div>
           <img src={groupImage} alt="Group" />
           <button onClick={handleGroup}> See all </button>
@@ -47,9 +60,7 @@ export default function HomePage() {
           <button onClick={handleEvent}>Find an Event</button>
         </div>
       </div>
-      <div className='StartGroup'>
-        <button onClick={handleClick} style={{fontFamily:"Kaushan Script"}} disabled={!loggedIn}>Start a group</button>
-      </div>
+    {startButton}
       {loggedIn}
     </div>
   );
