@@ -47,19 +47,21 @@ export default function HomePage() {
         <p>-Whether you&rsquo;re into hiking, reading, networking, or skill-sharing, there&rsquo;s a vibrant community waiting for you. With events taking place daily, there&rsquo;s always something exciting to join. Sign up now and start exploring the endless possibilities of connecting with like-minded individuals.</p>
       </div>
       <div className='info'>
-        <div>
+        <div >
           <h1 style={{color:"black",backgroundColor:"white",margin:"0px"}}>How GatherX works</h1>
           <p style={{color:"black",backgroundColor:"white",}}>Make friends and have fun!</p>
         </div>
+      </div>
+        <div className='see-info'>
         <div>
           <img src={groupImage} alt="Group" />
-          <button onClick={handleGroup}> See all </button>
+          <button onClick={handleGroup}> See all Groups </button>
         </div>
         <div>
           <img src={eventImage} alt="Event" />
           <button onClick={handleEvent}>Find an Event</button>
         </div>
-      </div>
+        </div>
     {startButton}
       {loggedIn}
     </div>

@@ -85,7 +85,8 @@ ul {
     margin-top: 3px;
 }
 .ulHeader{
-  height: 95px;
+  height: 3.5rem;
+  border-bottom: 1px solid black;
 }
 button{
   font-size: 15px;

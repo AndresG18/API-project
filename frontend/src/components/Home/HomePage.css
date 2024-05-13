@@ -8,13 +8,12 @@ div h1{
     display: flex;
     flex-direction: column;
 }
-
 .info div {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 50px;
+    padding-top: 2rem;
 }
 
 .info div * {
@@ -23,14 +22,20 @@ div h1{
     background-color: black;
 }
 
-.info div img {
-    padding: 15px;
+.see-info div img {
+    padding: 3px;
+    background-color: rgb(0, 0, 0);
+    width: 26rem;
 }
 
-.info div button {
+.see-info button {
     width: 200px;
-    box-shadow: 3px 3px 3px 3px;
-    margin-top: 5px;
+    height: 35px;
+    /* margin-bottom: 20px; */
+    background-color: black;
+    border: black;
+    color: white;
+    font-family: "Kaushan Script";
 }
 
 .introduction {
@@ -44,9 +49,9 @@ div h1{
     margin: 5px;
     margin-left: 0px;
     margin-right: 20px;
-   
-        font-family: "Kaushan Script";
-   
+    
+    font-family: "Kaushan Script";
+    
 }
 
 .StartGroup {
@@ -88,9 +93,17 @@ div h1{
 button{
     cursor: pointer;
 }
-/* .homepage{
+.see-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* align-content: center ; */
+    margin: 2rem;
+    gap: 5rem;
+}
+.see-info > *{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-} */
+}

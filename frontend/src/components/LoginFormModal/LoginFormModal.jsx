@@ -3,8 +3,9 @@ import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './LoginForm.css';
+import { csrfFetch } from '../../store/csrf';
 // import { useNavigate } from 'react-router-dom';
-
+// import { UseSelector } from 'react-redux/es/hooks/useSelector';
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
@@ -12,7 +13,15 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const [err, setErr] = useState(false)
   const { closeModal } = useModal();
-
+  // const sessionUser = useSelector(state => state.session.user);
+  const handleClick = async (e) => {
+    e.preventDefault();
+    await csrfFetch('/api/session', {
+      method: "POST",
+      body: JSON.stringify({ credential: "Demo-lition", password: 'password' })
+    });
+    window.location.replace('/')
+  }
 
   useEffect(() => {
     if (credential.length < 4 || password.length < 6) setErr(true)
@@ -25,10 +34,10 @@ function LoginFormModal() {
     try {
       e.preventDefault()
       const response = await dispatch(sessionActions.login({ credential, password }));
-      if (response.ok){
+      if (response.ok) {
         closeModal();
       }
-      
+
     }
     catch (e) {
       const err = await e.json()
@@ -40,6 +49,11 @@ function LoginFormModal() {
   return (
     <>
       <h1>Log In</h1>
+      <li style={{margin:"10px"}} >
+        <button onClick={handleClick} className='logout'>
+          Login as demo user
+        </button>
+      </li>
       <form onSubmit={handleSubmit}>
         <label>
           Username or Email
