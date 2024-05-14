@@ -68,3 +68,7 @@ margin :5px
     /* justify-content:; */
     margin-top: 20px;
 }
+.rdtDays {
+    display: flex;
+    justify-content: center;
+}

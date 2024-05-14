@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './LoginForm.css';
 import { csrfFetch } from '../../store/csrf';
-// import { useNavigate } from 'react-router-dom';
-// import { UseSelector } from 'react-redux/es/hooks/useSelector';
+
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
@@ -13,7 +12,7 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const [err, setErr] = useState(false)
   const { closeModal } = useModal();
-  // const sessionUser = useSelector(state => state.session.user);
+
   const handleClick = async (e) => {
     e.preventDefault();
     await csrfFetch('/api/session', {
@@ -27,6 +26,7 @@ function LoginFormModal() {
     if (credential.length < 4 || password.length < 6) setErr(true)
     else setErr(false)
   }, [credential, password])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -37,24 +37,23 @@ function LoginFormModal() {
       if (response.ok) {
         closeModal();
       }
-
-    }
-    catch (e) {
+    } catch (e) {
       const err = await e.json()
       setErrors(err)
     }
-
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <li style={{margin:"10px"}} >
-        <button onClick={handleClick} className='logout'>
-          Login as demo user
-        </button>
-      </li>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <h1 className="login-title">Log In</h1>
+      <ul className="loginDemo-btn">
+        <li>
+          <button onClick={handleClick}>
+            Login as demo user
+          </button>
+        </li>
+      </ul>
+      <form className="login-form" onSubmit={handleSubmit}>
         <label>
           Username or Email
           <input
@@ -73,10 +72,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors && <p> {Object.values(errors)} </p>}
-        <button disabled={err == true} type="submit">Log In</button>
+        {errors && <p className="error-message"> {Object.values(errors)} </p>}
+        <button className="login-btn" disabled={err == true} type="submit">Log In</button>
       </form>
-    </>
+    </div>
   );
 }
 

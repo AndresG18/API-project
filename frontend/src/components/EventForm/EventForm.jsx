@@ -149,9 +149,11 @@ function EventForm({ props }) {
           <textarea value={description} placeholder='Please include at least 30 characters' onChange={(e) => setDescription(e.target.value)} />
         </div>
         {isErr && <p className='err' >{err.description} </p>}
-        <button onClick={handleSubmit} >
+        <div className='CreateEvent'>
+        <button type='Submit' onClick={handleSubmit} >
           {event?.id ? "Update Event" : "Create Event"}
         </button>
+        </div>
       </form>
     </>
   )

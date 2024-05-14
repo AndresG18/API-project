@@ -46,3 +46,7 @@ table{
 .rdtDays {
     margin-top: 12px ;
 }
+.CreateEvent{
+    display: flex;
+    justify-content: center;
+}

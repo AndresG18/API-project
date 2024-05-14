@@ -55,9 +55,9 @@ function SignupFormModal() {
 
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="signup-container">
+      <h1 className="signup-title">Sign Up</h1>
+      <form className="signup-form" onSubmit={handleSubmit}>
         <label>
           Email
           <input
@@ -77,7 +77,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className='error-message' >{errors.username}</p>}
         <label>
           First Name
           <input
@@ -87,7 +87,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && <p className='error-message' >{errors.firstName}</p>}
         <label>
           Last Name
           <input
@@ -97,7 +97,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        {errors.lastName && <p className='error-message' >  {errors.lastName}</p>}
         <label>
           Password
           <input
@@ -117,13 +117,13 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className='error-message' >{errors.confirmPassword}</p>}
         {errors.errors && Object.values(errors.errors).map(err =>
-        <p key={err}>{err}</p>
-          )}
-        <button disabled={errors == true} type="submit">Sign Up</button>
+          <p className='error-message' key={err}>{err}</p>
+        )}
+        <button className="signup-btn" disabled={errors == true} type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 
