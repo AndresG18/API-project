@@ -16,7 +16,7 @@ function EventDelete({props}) {
     closeModal()
 }
   return (
-    <div>
+    <div className='deleteModal'>
     <p>Are you sure you want to delete {event?.name ?? "this event"} ?</p>
     <button className='yes'onClick={(e)=>{handleClick(e)}}>Yes </button>
     <button className = 'no'onClick={closeModal}>Cancel</button>

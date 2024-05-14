@@ -25,11 +25,11 @@ const handleClose = (e)=>{
   return (
     <div>
         <h1> Are you sure you want to delete {group.name} ?</h1>
-        <div>
-            <button onClick={handleDelete} >
+        <div className='deleteModal'>
+            <button className='yes' onClick={handleDelete} >
                 Yes
             </button>
-            <button onClick={handleClose}>
+            <button className="no"onClick={handleClose}>
                 Cancel
             </button>
         </div>
